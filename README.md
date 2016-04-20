@@ -28,10 +28,15 @@ TmtemasxDj=array [TiDjs,TitemasxDj] of Tvnomtemas;
 
 
 var 
-MLdj:timaxdjs;
-MLtem:timaxtemasxDj;
+MLdj:Timaxdjs;
+MLtem:TimaxtemasxDj;
+nombretemas:Tvnombretemas;
+durtemas:Tmdurtemas;
+nomDjs:TvnomDjs;
+temasxDj:TmtemasxDj;
+
 
 BEGIN
-	
+Ingresarlistadetemas (	
 	
 END.
