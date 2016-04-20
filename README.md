@@ -1,6 +1,7 @@
 program DjsTemas;
 
 const 
+
 	MAXDjs=25; 
 	
 	MAXTemasxDj=35; 
@@ -13,6 +14,7 @@ const
 
 
 type
+
 	tiNombre=1..20; {No se si va a ser necesario este indice para hacer que nos e pase ni el nombre de la cancion ni el nombre de los djs de 20}
 	
 	tiDjs=1..MAXDjs;
@@ -36,7 +38,9 @@ type
 	tmTemasxDj=array [TiDjs,tiTemasxDj] of tvNomTemas;
 
 
-var MLdj:Timaxdjs; {maximo logico de DJs. donde esta declarado timaxdjs?}
+var
+
+	MLdj:Timaxdjs; {maximo logico de DJs. donde esta declarado timaxdjs?}
 
 	MLtem:TimaxtemasxDj; {maximo logico de temas. el tipo de esta variable no puede ser una constante!}
 	
