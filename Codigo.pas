@@ -25,8 +25,8 @@ type
 
 var
 
-	MLdj:Timaxdjs; {maximo logico de DJs. donde esta declarado timaxdjs?}
-	MLtem:TimaxtemasxDj; {maximo logico de temas. el tipo de esta variable no puede ser una constante!}
+	MLdj:tiDjs; }
+	MLtem:tiTemasxDj; 
 	nombretemas:tvNomTemas;
 	durtemas:tmDurTemas;
 	nomDjs:tvNomDjs;
