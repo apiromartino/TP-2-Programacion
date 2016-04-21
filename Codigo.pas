@@ -20,9 +20,9 @@ type
 Procedure IngreseListaTemas(var listatemas:tmListaTemas);     
 var
     i: tiTemas;
-    nom: string [20];
-    min: string [20];
-    seg: string [20];
+    nom: string;
+    min: string;
+    seg: string;
 begin
     writeln('Ingrese la lista de 200 temas con su duración');
     for i:=1 to MAXTEM do
@@ -44,7 +44,13 @@ end;
 
 
 
-Procedure IngreseListaDjs();
+Procedure IngreseListaDjs(var nomDjs:tvNomDjs);
+
+var
+   i:tiDjs
+begin
+
+end;
 
 
 
