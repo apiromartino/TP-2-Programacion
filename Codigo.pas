@@ -24,14 +24,37 @@ var
 
 begin
      repeat
-     write('Minutos:');
-     readln(min);
-     VAL(min,minnum,codigo);
-     if (minnum>MAXMIN) then
-           writeln('Supera los ',MAXMIN,' minutos, vuelva a ingrasar nuevamente');
-     until (minnum<=MAXMIN);
+         write('Minutos:');
+         readln(min);
+         VAL(min,minnum,codigo);
+         if (minnum>MAXMIN) then
+             writeln('Supera los ',MAXMIN,' minutos, vuelva a ingrasar nuevamente');
+         until (minnum<=MAXMIN);
      
 end;
+
+Procedure ValidarSegs(seg:string;min:string); {no pude hacer funcionar que si ponen 10 minutos  y agregan mas segundos les vulva a pedir lso segundos}
+
+var
+     minnum:byte;
+     codigo1:byte;
+     segnum:byte;
+     codigo2:byte;
+     
+begin
+
+     repeat
+         write('Segundos:');
+         readln(seg);
+         VAL(min,minnum,codigo1);
+         VAL(seg,segnum,codigo2);
+         if (segnum>MAXSEGS) then
+               writeln('Los segundos superaron los ',MAXSEGS,' segundos, vuelva a ingresar los segundos resantes del tema');
+         if ((minnum=MAXMIN) and (segnum<>0)) then
+               writeln('El tema supera los ',MAXMIN,' minutos, vuelva a ingresar los segundos restantes del tema')
+     until (((minnum<=MAXMIN) and (segnum=0)) and (segnum<=MAXSEGS));           
+
+end;      
 
 
 Procedure IngreseListaTemas(var listatemas:tmListaTemas);     
@@ -51,8 +74,7 @@ begin
        writeln('Duracion del tema');
        ValidarMinutos(min);
        listatemas[i,minutos]:= min;
-       write('Segundos:');
-       readln(seg);
+       ValidarSegs(seg,min);
        listatemas[i,segundos]:=seg;
        end;
 end;
@@ -112,3 +134,4 @@ BEGIN
     Menu1(
 
 END.
+
