@@ -20,17 +20,24 @@ type
 Procedure IngreseListaTemas(var listatemas:tmListaTemas);     
 var
     i: tiTemas;
-    jj: 
-    ii:
+    nom: string [20];
+    min: string [20];
+    seg: string [20];
 begin
+    writeln('Ingrese la lista de 200 temas con su duración');
     for i:=1 to MAXTEM do
        begin
-       writeln('Ingrese nombre del tema que quiere en su lista');
-       readln(nombretemas);
-       tvNomTemas[i]:= nombretemas;
-       
-           
-
+       writeln('Ingrese tema');
+       readln(nom);
+       listatemas[i,nombre]:= nom;
+       writeln('Duracion del tema');
+       write('Minutos:');
+       readln(min);
+       listatemas[i,minutos]:= min;
+       write('Segundos:');
+       readln(seg);
+       listatemas[i,segundos]:=seg;
+       end;
 end;
 
 
