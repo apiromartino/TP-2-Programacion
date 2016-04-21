@@ -11,15 +11,27 @@ type
 	tiDjs=1..MAXDjs;
 	tiTemasxDj=1..MAXTemasxDj;
 	tiTemas=1..MAXTEM;
-	tiMinSeg=(minutos,segundos);
-	tvNomTemas=array [tiTemas] of string[20];
-	tmDurTemas=array [tiTemas,tiMinSeg] of byte;
+	tiNomMinSeg=(nombre,minutos,segundos);
+	tmListaTemas=array [tiTemas,tiNomMinSeg] of string[20];
 	tvNomDjs=array [tiDjs] of string[40];
 	tmTemasxDj=array [TiDjs,tiTemasxDj] of tvNomTemas;
 
 
-Procedure IngreseListaTemas(var nombretemas:tvNomTemas; var durtemas:tmDurTemas);     
+Procedure IngreseListaTemas(var listatemas:tmListaTemas);     
+var
+    i: tiTemas;
+    jj: 
+    ii:
+begin
+    for i:=1 to MAXTEM do
+       begin
+       writeln('Ingrese nombre del tema que quiere en su lista');
+       readln(nombretemas);
+       tvNomTemas[i]:= nombretemas;
+       
+           
 
+end;
 
 
 
@@ -36,7 +48,7 @@ Procedure IngreseListaDjs();
 Procedure IngreseListaTemasxDj();
 
 
-Procedure Menu1(var nombretemas:tvNomTemas; var durtemas:tmDurTemas; var nomDjs:tvNomDjs; var temasxDj:tmTemasxDj );
+Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasxDj:tmTemasxDj );
 const 
      OPMAX=1;
      OPMIN=3;
@@ -50,7 +62,7 @@ begin
      repeat
         readln(opcionmen1);
         case opcionmen1 of
-            1: IngreseListaTemas(nombretemas,durtemas);
+            1: IngreseListaTemas(listatemas);
             2: IngreseListaDjs(nomDjs);
             3: IngreseListaTemasxDj(temasxDj,MLdj,MLtem);
         else writeln('Ingreso una opción inválida, vuelva a elegir una opción');    
@@ -61,8 +73,7 @@ end;
 var 
     MLdj:tiDjs; {maximo logico de DJs, no se si se va a necesitar, por ahi inicializando en 0 es mejor}
 	MLtem:tiTemasxDj; {maximo logico de temas, no se si se va a necesitar, por ahi inicializando en 0 es mejor}
-	nombretemas:tvNomTemas;
-	durtemas:tmDurTemas;
+	listatemas:tmListaTemas
 	nomDjs:tvNomDjs;
 	temasxDj:tmTemasxDj;
 
