@@ -14,7 +14,7 @@ type
 	tiNomMinSeg=(nombre,minutos,segundos);
 	tmListaTemas=array [tiTemas,tiNomMinSeg] of string[20];
 	tvNomDjs=array [tiDjs] of string[40];
-	tmTemasxDj=array [TiDjs,tiTemasxDj] of tvNomTemas;
+	tmTemasxDj=array [TiDjs,tiTemasxDj] of string[40];
 
 Procedure ValidarMinutos(min:string);
 
@@ -52,7 +52,7 @@ begin
                writeln('Los segundos superaron los ',MAXSEGS,' segundos, vuelva a ingresar los segundos resantes del tema');
          if ((minnum=MAXMIN) and (segnum<>0)) then
                writeln('El tema supera los ',MAXMIN,' minutos, vuelva a ingresar los segundos restantes del tema')
-     until (((minnum<=MAXMIN) and (segnum=0)) and (segnum<=MAXSEGS));           
+     until (((minnum<=MAXMIN) or (segnum=0)) and (segnum<=MAXSEGS));           
 
 end;      
 
@@ -85,16 +85,17 @@ Procedure IngreseListaDjs(var nomDjs:tvNomDjs);
 
 var
    i:tiDjs;
-   nombre:tvNomDjs;
-   ML:tiDjs
+   nombre:string;
+   ML:tiDjs;
 begin
    writeln('Ingrese la cantidad de Djs que desea agregar en esta lista, con un máximo de 25');
    readln(ML);
    for i:=1 to ML do
-   writeln('Ingrese nombre del Dj');
-   readln(nombre);
-   nomDjs[i];    
-        
+      begin
+        writeln('Ingrese nombre del Dj');
+        readln(nombre);
+        nomDjs[i]:=nombre;    
+      end;
 end;
 
 
@@ -122,20 +123,18 @@ begin
         case opcionmen1 of
             1: IngreseListaTemas(listatemas);
             2: IngreseListaDjs(nomDjs);
-            3: IngreseListaTemasxDj(temasxDj,MLdj,MLtem);
+            3: IngreseListaTemasxDj(temasxDj);
         else writeln('Ingreso una opción inválida, vuelva a elegir una opción');    
         end;
-     until ((opcionmen1>=OPMIN) and (opcionmen<=OPMAX));   
+     until ((opcionmen1>=OPMIN) and (opcionmen1<=OPMAX));   
 end;
 
 var 
     listatemas:tmListaTemas;
 	nomDjs:tvNomDjs;
 	temasxDj:tmTemasxDj;
-
+    i:byte;
 BEGIN 
-    Inicializarmatriztemasxdj(temasxDj);{si inicializamos esta matiz en 0 creo que no son necesarios los ML}
-    Menu1(
-
+    Menu1(listatemas,nomDjs,tmTemasxDj);
+    
 END.
-
