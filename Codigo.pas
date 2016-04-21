@@ -16,6 +16,23 @@ type
 	tvNomDjs=array [tiDjs] of string[40];
 	tmTemasxDj=array [TiDjs,tiTemasxDj] of tvNomTemas;
 
+Procedure ValidarMinutos(min:string);
+
+var
+     minnum:byte;
+     codigo:byte;
+
+begin
+     repeat
+     write('Minutos:');
+     readln(min);
+     VAL(min,minnum,codigo);
+     if (minnum>MAXMIN) then
+           writeln('Supera los ',MAXMIN,' minutos, vuelva a ingrasar nuevamente');
+     until (minnum<=MAXMIN);
+     
+end;
+
 
 Procedure IngreseListaTemas(var listatemas:tmListaTemas);     
 var
@@ -23,6 +40,7 @@ var
     nom: string;
     min: string;
     seg: string;
+    
 begin
     writeln('Ingrese la lista de 200 temas con su duración');
     for i:=1 to MAXTEM do
@@ -31,8 +49,7 @@ begin
        readln(nom);
        listatemas[i,nombre]:= nom;
        writeln('Duracion del tema');
-       write('Minutos:');
-       readln(min);
+       ValidarMinutos(min);
        listatemas[i,minutos]:= min;
        write('Segundos:');
        readln(seg);
@@ -42,14 +59,14 @@ end;
 
 
 
-
-
 Procedure IngreseListaDjs(var nomDjs:tvNomDjs);
 
 var
    i:tiDjs
-begin
 
+begin
+   writeln('Ingrese los nombres de los Djs que van a tocar y en el momento en el que no quiera agregar más coloque un 0 y pulse enter');
+      
 end;
 
 
@@ -86,12 +103,12 @@ end;
 var 
     MLdj:tiDjs; {maximo logico de DJs, no se si se va a necesitar, por ahi inicializando en 0 es mejor}
 	MLtem:tiTemasxDj; {maximo logico de temas, no se si se va a necesitar, por ahi inicializando en 0 es mejor}
-	listatemas:tmListaTemas
+	listatemas:tmListaTemas;
 	nomDjs:tvNomDjs;
 	temasxDj:tmTemasxDj;
 
 BEGIN 
-    Inicializarmatriztemasxdj(temasxDj){si inicializamos esta matiz en 0 creo que no son necesarios los ML}
+    Inicializarmatriztemasxdj(temasxDj);{si inicializamos esta matiz en 0 creo que no son necesarios los ML}
     Menu1(
 
 END.
