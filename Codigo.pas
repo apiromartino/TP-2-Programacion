@@ -132,9 +132,10 @@ begin
 			begin
 				writeln('Ingreses el tema que ocupara el puesto')
 				readln(numeroTemaAgregado); {IMPORTANTE: AGREGAR CONDICIONAL PARA QUE CHEQUEE LA LISTA FIJANDOSE SI EL TEMA YA FUE AGREGADO ANTES (NO SE PUEDEN REPETIR TEMAS POR DJ)}
-				temasPorDj[i][k] := listatemas[numeroTemaAgregado]; {no estoy seguro si esta bien escrito esto, la idea es que en el lugar k del vector de }
-																	{vectores meta el tema. Pero estoy pensando en que estamos equivocados, no tiene que ser un vector de vectores}
-			end;													{sino un vector de vectores/strings. FIJENSE.}
+				temasPorDj[i][k] := listatemas[numeroTemaAgregado]; {no estoy seguro si esta bien escrito esto, la idea es que en el lugar k del vector de vectores meta un string que}
+											{corresponde con el tema numero 'numeroTemaAgregado' del arreglo con temas.}
+																
+			end;													
 	end;			
 
 end;
