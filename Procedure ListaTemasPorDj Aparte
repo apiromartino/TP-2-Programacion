@@ -1,8 +1,10 @@
-{Falta validar que la cancion este en la lista de los 200 temas, tiene un error que estoy fijandome}
+{Falta validar que la cancion este en la lista de los 200 temas y que no se repita la cancion el mismo Dj, 
+el unico problema es que si ponen un tema de 1 letra sale del while
+y le pregunta el otro el primer tema. Pero Funciona!!}
 
 
 
-Procedure IngreseListaTemasPorDj(listatemas:tmListaTemas; nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj; MLDjs:tiDjs); 
+Procedure IngreseListaTemasPorDj(listatemas:tmListaTemas; nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj; MLDjs:tiDjs);
 var
 	j:tiTemasPorDj;
 	i:tiDjs;
@@ -19,7 +21,7 @@ begin
 		readln(tema);
 		temasPorDj[i,j]:=tema;		
 		VAL(tema,corte,codigo);
-		while (corte<>0) do 
+		while ((corte<>0) or (LENGHT(tema)>1)) do 
 			begin
 				j:=j+1;
 				writeln('Nombre del tema ',j);
@@ -29,3 +31,4 @@ begin
 			end;
 	end;		
 end;
+
