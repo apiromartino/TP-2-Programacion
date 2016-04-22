@@ -42,10 +42,11 @@ var
      codigo1:byte;
      segnum:byte;
      codigo2:byte;
-     
+     correcto:byte;
 begin
 
      repeat
+         correcto:=1;
          write('Segundos:');
          readln(seg);
          VAL(min,minnum,codigo1);
@@ -53,8 +54,11 @@ begin
          if (segnum>MAXSEGS) then
                writeln('Los segundos superaron los ',MAXSEGS,' segundos, vuelva a ingresar los segundos resantes del tema');
          if ((minnum=MAXMIN) and (segnum<>0)) then
-               writeln('El tema supera los ',MAXMIN,' minutos, vuelva a ingresar los segundos restantes del tema')
-     until (((minnum<=MAXMIN) or (segnum=0)) and (segnum<=MAXSEGS));           
+               begin
+					writeln('El tema supera los ',MAXMIN,' minutos, vuelva a ingresar los segundos restantes del tema');
+					correcto:=0;
+			   end;		
+     until ((correcto<>0) and (segnum<=MAXSEGS));           
 
 end;      
 
