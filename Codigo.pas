@@ -107,13 +107,9 @@ end;
 Procedure IngreseListaTemasxDj();
 
 
-Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasxDj:tmTemasxDj );
-const 
-     OPMAX=1;
-     OPMIN=3;
-var
-     opcionmen1:byte;
 begin
+	contadorOpcion1:= 0;
+	contadorOpcion2:= 0;
      writeln('Ingrese la opción deseada');
      writeln('1- Ingresar lista de temas');
      writeln('2- Ingresar lista de Djs');
@@ -121,9 +117,19 @@ begin
      repeat
         readln(opcionmen1);
         case opcionmen1 of
-            1: IngreseListaTemas(listatemas);
-            2: IngreseListaDjs(nomDjs);
-            3: IngreseListaTemasxDj(temasxDj);
+            1: 
+				begin
+					IngreseListaTemas(listatemas);
+					contadorOpcion1:=contadorOpcion1 + 1;
+				end;
+            2: 
+				begin
+					IngreseListaDjs(nomDjs);
+					contadorOpcion2:=contadorOpcion2 + 1;
+				end;	
+            3: 			if (contadorOpcion1>1) AND (contadorOpcion2>1) then
+					IngreseListaTemasxDj(temasxDj);
+					
         else writeln('Ingreso una opción inválida, vuelva a elegir una opción');    
         end;
      until ((opcionmen1>=OPMIN) and (opcionmen1<=OPMAX));   
