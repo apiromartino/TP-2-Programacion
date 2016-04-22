@@ -1,5 +1,7 @@
 program DjsTemas;
 
+uses crt;
+
 const 
 	MAXDjs=25; 
 	MAXTemasPorDj=35; 
@@ -65,7 +67,7 @@ var
     seg: string;
     
 begin
-    writeln('Ingrese la lista de 200 temas con su duración');
+    writeln('Ingrese la lista de 200 temas con su duracion');
     for i:=1 to MAXTEM do
        begin
        writeln('Ingrese el nombre del tema');
@@ -87,7 +89,7 @@ var
    i:tiDjs;
    nombre:string;
 begin
-   writeln('Ingrese la cantidad de Djs que desea agregar en esta lista, con un máximo de 25');
+   writeln('Ingrese la cantidad de Djs que desea agregar en esta lista, con un maximo de 25');
    readln(MLDjs);
    for i:=1 to MLDjs do
       begin
@@ -100,10 +102,7 @@ end;
 
 
 
-
-listatemas, nomDjs, temasPorDj, MLTemas, MLDjs
-
-Procedure IngreseListaTemasPorDj(listatemas:tmListaTemas; nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj; MLDjs:tiDjs; MLTemas:tiTemas);
+Procedure IngreseListaTemasPorDj(listatemas:tmListaTemas; nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj; MLDjs:tiDjs);
 var
 	i:byte;
 	j:byte;
@@ -125,12 +124,12 @@ begin
 	begin
 		writeln('Agregue los temas para el dj', nomDjs[i], ', que ocupa el puesto numero ', i, ' en la lista.');
 		writeln('Esta es la lista de temas:');
-		for j:=1 to MLTemas do {Esto podria ser un procedure la verdad, 'presentarTemas' se podria llamar, alguno que lo escriba y reemplace aca asi queda}
+		for j:=1 to MAXTEM do {Esto podria ser un procedure la verdad, 'presentarTemas' se podria llamar, alguno que lo escriba y reemplace aca asi queda}
 							   {mas modular el codigo. Lo que hace es mostrarle al usuario los temas y el numero que tiene que ingresar para meter ese tema.}
 			writeln(j,' ', listatemas[j]);
-		for k:=1 to MLTemas do
+		for k:=1 to {a ver} do
 			begin
-				writeln('Ingreses el tema que ocupara el puesto')
+				writeln('Ingreses el tema que ocupara el puesto');
 				readln(numeroTemaAgregado); {IMPORTANTE: AGREGAR CONDICIONAL PARA QUE CHEQUEE LA LISTA FIJANDOSE SI EL TEMA YA FUE AGREGADO ANTES (NO SE PUEDEN REPETIR TEMAS POR DJ)}
 				temasPorDj[i][k] := listatemas[numeroTemaAgregado]; {no estoy seguro si esta bien escrito esto, la idea es que en el lugar k del vector de vectores meta un string que}
 											{corresponde con el tema numero 'numeroTemaAgregado' del arreglo con temas.}
@@ -141,7 +140,7 @@ begin
 end;
 
 
-Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj );
+Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj;var opcionmenu1:byte );
 const 
     OPMAX=3;
     OPMIN=1;
@@ -156,29 +155,28 @@ begin
      writeln('Ingrese la opción deseada');
      writeln('1- Ingresar lista de temas');
      writeln('2- Ingresar lista de Djs');
-     writeln('3- Ingresat temas que va a tocar cada Dj');
+     writeln('3- Ingresar temas que va a tocar cada Dj');
      repeat
-	readln(opcionmen1);
-	case opcionmen1 of
-	1: 
+		readln(opcionmen1);
+		case opcionmen1 of
+			1: 
 				begin
-					IngreseListaTemas(listatemas, MLTemas);
+					IngreseListaTemas(listatemas);
 					contadorOpcion1:=contadorOpcion1 + 1;
 				end;
-        2: 
+			2:	 
 				begin
 					IngreseListaDjs(nomDjs, MLDjs);
 					contadorOpcion2:=contadorOpcion2 + 1;
 				end;	
-        3: 
-				begin
-					if (contadorOpcion1>=1) AND (contadorOpcion2>=1) then
-						IngreseListaTemasPorDj(listatemas, nomDjs, temasPorDj, MLTemas, MLDjs);
+			3: 
+					if ((contadorOpcion1>=1) AND (contadorOpcion2>=1)) then
+						IngreseListaTemasPorDj(listatemas, nomDjs, temasPorDj, MLDjs);
 					else
-						writeln('Tiene que ingresar prrimero la lista de canciones y la de Djs antes de poder completar esta.');
-						opcionmen1=0;
-					
+						writeln('Tiene que ingresar primero la lista de canciones y la de Djs antes de poder completar esta.');
+						opcionmen1:=0;
         else writeln('Ingreso una opción inválida, vuelva a elegir una opción');    
+        end;     
      until ((opcionmen1>=OPMIN) and (opcionmen1<=OPMAX));   
 end;
 
@@ -186,9 +184,9 @@ var
     listatemas:tmListaTemas;
 	nomDjs:tvNomDjs;
 	temasPorDj:tmTemasPorDj;
-    i:byte;
+    opcionmenu1:byte;
 BEGIN 
-    Menu1(listatemas,nomDjs,temasPorDj);
-    Menu1(listatemas,nomDjs,temasPorDj);
-    Menu1(listatemas,nomDjs,temasPorDj);
+    repeat
+		Menu1(listatemas,nomDjs,temasPorDj,opcionmenu1);
+	until (opcionmenu1=3);	
 END.
