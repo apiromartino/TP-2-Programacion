@@ -16,7 +16,7 @@ type
 	tiNomMinSeg=(nombre,minutos,segundos);
 	tmListaTemas=array [tiTemas,tiNomMinSeg] of string[20];
 	tvNomDjs=array [tiDjs] of string[40];
-	tmTemasPorDj=array [TiDjs,tiTemasPorDj] of string[40]; {esto no se puede declarar asi, no? tira error, tenes que ponerle un nombre al string[40] antes}
+	tmTemasPorDj=array [TiDjs,tiTemasPorDj] of string[40]; 
 
 Procedure ValidarMinutos(var min:string);
 
@@ -35,7 +35,7 @@ begin
      
 end;
 
-Procedure ValidarSegs(var seg:string;min:string); {no pude hacer funcionar que si ponen 10 minutos  y agregan mas segundos les vulva a pedir lso segundos}
+Procedure ValidarSegs(var seg:string;min:string); 
 
 var
      minnum:byte;
