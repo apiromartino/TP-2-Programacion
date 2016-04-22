@@ -68,10 +68,10 @@ begin
     writeln('Ingrese la lista de 200 temas con su duración');
     for i:=1 to MAXTEM do
        begin
-       writeln('Ingrese tema');
+       writeln('Ingrese el nombre del tema');
        readln(nom);
        listatemas[i,nombre]:= nom;
-       writeln('Duracion del tema');
+       writeln('Duracion del tema, con un máximo de 10 minutos');
        ValidarMinutos(min);
        listatemas[i,minutos]:= min;
        ValidarSegs(seg,min);
