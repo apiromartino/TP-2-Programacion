@@ -18,7 +18,7 @@ type
 	tvNomDjs=array [tiDjs] of string[40];
 	tmTemasPorDj=array [TiDjs,tiTemasPorDj] of string[40]; {esto no se puede declarar asi, no? tira error, tenes que ponerle un nombre al string[40] antes}
 
-Procedure ValidarMinutos(min:string);
+Procedure ValidarMinutos(var min:string);
 
 var
      minnum:byte;
@@ -35,7 +35,7 @@ begin
      
 end;
 
-Procedure ValidarSegs(seg:string;min:string); {no pude hacer funcionar que si ponen 10 minutos  y agregan mas segundos les vulva a pedir lso segundos}
+Procedure ValidarSegs(var seg:string;min:string); {no pude hacer funcionar que si ponen 10 minutos  y agregan mas segundos les vulva a pedir lso segundos}
 
 var
      minnum:byte;
