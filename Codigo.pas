@@ -2,19 +2,19 @@ program DjsTemas;
 
 const 
 	MAXDjs=25; 
-	MAXTemasxDj=35; 
+	MAXTemasPorDj=35; 
 	MAXTEM=10; {Ahora tiene 10 para cuando probamos no tener que poner los 200 temas, despues hay que cambiarlo} 
 	MAXMIN=10; 
 	MAXSEGS=59;
 
 type
 	tiDjs=1..MAXDjs;
-	tiTemasxDj=1..MAXTemasxDj;
+	tiTemasPorDj=1..MAXTemasPorDj;
 	tiTemas=1..MAXTEM;
 	tiNomMinSeg=(nombre,minutos,segundos);
 	tmListaTemas=array [tiTemas,tiNomMinSeg] of string[20];
 	tvNomDjs=array [tiDjs] of string[40];
-	tmTemasxDj=array [TiDjs,tiTemasxDj] of string[40];
+	tmTemasPorDj=array [TiDjs,tiTemasPorDj] of string[40];
 
 Procedure ValidarMinutos(min:string);
 
@@ -104,10 +104,10 @@ end;
 
 
 
-Procedure IngreseListaTemasxDj();
+Procedure IngreseListaTemasPorDj();
 
 
-Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasxDj:tmTemasxDj );
+Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasxDj:tmTemasPorDj );
 const 
      OPMAX=1;
      OPMIN=3;
@@ -138,7 +138,7 @@ begin
         3: 
 				begin
 					if (contadorOpcion1=>1) AND (contadorOpcion2=>1) then
-						IngreseListaTemasxDj(temasxDj);
+						IngreseListaTemasPorDj(temasxDj);
 					else
 						opcionmen1=0;
 					
@@ -149,9 +149,9 @@ end;
 var 
     listatemas:tmListaTemas;
 	nomDjs:tvNomDjs;
-	temasxDj:tmTemasxDj;
+	temasxDj:tmTemasPorDj;
     i:byte;
 BEGIN 
-    Menu1(listatemas,nomDjs,tmTemasxDj);
+    Menu1(listatemas,nomDjs,tmTemasPorDj);
     
 END.
