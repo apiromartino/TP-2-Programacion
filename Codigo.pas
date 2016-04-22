@@ -140,14 +140,11 @@ begin
 end;
 
 
-Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj;var opcionmenu1:byte );
+Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj;var opcionmenu1:byte;contadorOpcion1:byte;contadorOpcion2:byte);
 const 
     OPMAX=3;
     OPMIN=1;
 var
-    opcionmen1:byte;
-	contadorOpcion1:byte;
-	contadorOpcion2:byte;
 	MLDjs:tiDjs;
 begin
 	contadorOpcion1:= 0;
@@ -175,7 +172,7 @@ begin
 					else
 						writeln('Tiene que ingresar primero la lista de canciones y la de Djs antes de poder completar esta.');
 						opcionmen1:=0;
-        else writeln('Ingreso una opción inválida, vuelva a elegir una opción');    
+        else writeln('Ingreso una opcion invalida, vuelva a elegir una opción');    
         end;     
      until ((opcionmen1>=OPMIN) and (opcionmen1<=OPMAX));   
 end;
@@ -185,8 +182,12 @@ var
 	nomDjs:tvNomDjs;
 	temasPorDj:tmTemasPorDj;
     opcionmenu1:byte;
+    contadorOpcion1:byte;
+    contadorOpcion:byte;
 BEGIN 
+    contadorOpcion1:=0;
+    contadorOpcion2:=0;
     repeat
-		Menu1(listatemas,nomDjs,temasPorDj,opcionmenu1);
+		Menu1(listatemas,nomDjs,temasPorDj,opcionmenu1,contadorOpcion1,contadorOpcion2);
 	until (opcionmenu1=3);	
 END.
