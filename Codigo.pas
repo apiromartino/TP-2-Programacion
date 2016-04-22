@@ -137,7 +137,7 @@ begin
 				end;	
         3: 
 				begin
-					if (contadorOpcion1>1) AND (contadorOpcion2>1) then
+					if (contadorOpcion1=>1) AND (contadorOpcion2=>1) then
 						IngreseListaTemasxDj(temasxDj);
 					else
 						opcionmen1=0;
