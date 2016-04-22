@@ -127,9 +127,12 @@ begin
 					IngreseListaDjs(nomDjs);
 					contadorOpcion2:=contadorOpcion2 + 1;
 				end;	
-            3: 			if (contadorOpcion1>1) AND (contadorOpcion2>1) then
+            3: 			begin			
+            				if (contadorOpcion1>1) AND (contadorOpcion2>1) then
 					IngreseListaTemasxDj(temasxDj);
-					
+					else
+						opcionmen1 = 0;
+				end;	
         else writeln('Ingreso una opción inválida, vuelva a elegir una opción');    
         end;
      until ((opcionmen1>=OPMIN) and (opcionmen1<=OPMAX));   
