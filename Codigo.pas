@@ -170,12 +170,12 @@ begin
 				end;	
 			3: 
 					if ((contadorOpcion1>=1) AND (contadorOpcion2>=1)) then
-						IngreseListaTemasPorDj(listatemas, nomDjs, temasPorDj, MLDjs);
+						IngreseListaTemasPorDj(listatemas, nomDjs, temasPorDj, MLDjs)
 					else
 						begin
 							writeln('Tiene que ingresar primero la lista de canciones y la de Djs antes de poder completar esta.');
 							opcionmen1:=0;
-						end
+						end;
         else writeln('Ingreso una opcion invalida, vuelva a elegir una opción');    
         end;     
      until ((opcionmen1>=OPMIN) and (opcionmen1<=OPMAX));   
