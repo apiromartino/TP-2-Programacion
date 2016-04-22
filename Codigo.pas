@@ -57,7 +57,7 @@ begin
 end;      
 
 
-Procedure IngreseListaTemas(var listatemas:tmListaTemas);     {NECESITAMOS UN MAXIMO LOGICO DE TEMAS TAMBIEN}
+Procedure IngreseListaTemas(var listatemas:tmListaTemas);     
 var
     i: tiTemas;
     nom: string;
@@ -81,15 +81,15 @@ end;
 
 
 
-Procedure IngreseListaDjs(var nomDjs:tvNomDjs, var ML:tiDjs);
+Procedure IngreseListaDjs(var nomDjs:tvNomDjs; var MLDjs:tiDjs);
 
 var
    i:tiDjs;
    nombre:string;
 begin
    writeln('Ingrese la cantidad de Djs que desea agregar en esta lista, con un máximo de 25');
-   readln(ML);
-   for i:=1 to ML do
+   readln(MLDjs);
+   for i:=1 to MLDjs do
       begin
         writeln('Ingrese nombre del Dj');
         readln(nombre);
@@ -124,7 +124,7 @@ begin
 	for i:=1 to MLDjs do
 	begin
 		writeln('Agregue los temas para el dj', nomDjs[i], ', que ocupa el puesto numero ', i, ' en la lista.');
-		writeln('Esta es la lista de temas:')
+		writeln('Esta es la lista de temas:');
 		for j:=1 to MLTemas do {Esto podria ser un procedure la verdad, 'presentarTemas' se podria llamar, alguno que lo escriba y reemplace aca asi queda}
 							   {mas modular el codigo. Lo que hace es mostrarle al usuario los temas y el numero que tiene que ingresar para meter ese tema.}
 			writeln(j,' ', listatemas[j]);
@@ -143,14 +143,13 @@ end;
 
 Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj );
 const 
-    OPMAX=1;
-    OPMIN=3;
+    OPMAX=3;
+    OPMIN=1;
 var
     opcionmen1:byte;
 	contadorOpcion1:byte;
 	contadorOpcion2:byte;
 	MLDjs:tiDjs;
-	MLTemas:tiTemas;
 begin
 	contadorOpcion1:= 0;
 	contadorOpcion2:= 0;
@@ -173,9 +172,10 @@ begin
 				end;	
         3: 
 				begin
-					if (contadorOpcion1=>1) AND (contadorOpcion2=>1) then
+					if (contadorOpcion1>=1) AND (contadorOpcion2>=1) then
 						IngreseListaTemasPorDj(listatemas, nomDjs, temasPorDj, MLTemas, MLDjs);
 					else
+						writeln('Tiene que ingresar prrimero la lista de canciones y la de Djs antes de poder completar esta.');
 						opcionmen1=0;
 					
         else writeln('Ingreso una opción inválida, vuelva a elegir una opción');    
@@ -189,5 +189,6 @@ var
     i:byte;
 BEGIN 
     Menu1(listatemas,nomDjs,temasPorDj);
-    
+    Menu1(listatemas,nomDjs,temasPorDj);
+    Menu1(listatemas,nomDjs,temasPorDj);
 END.
