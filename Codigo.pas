@@ -144,15 +144,13 @@ begin
 end;
 
 
-Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj;var opcionmen1:byte;contadorOpcion1:byte;contadorOpcion2:byte);
+Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj;var opcionmen1:byte;var contadorOpcion1:byte;var contadorOpcion2:byte);
 const 
     OPMAX=3;
     OPMIN=1;
 var
 	MLDjs:tiDjs;
 begin
-	contadorOpcion1:= 0;
-	contadorOpcion2:= 0;
      writeln('Ingrese la opción deseada');
      writeln('1- Ingresar lista de temas');
      writeln('2- Ingresar lista de Djs');
@@ -174,8 +172,10 @@ begin
 					if ((contadorOpcion1>=1) AND (contadorOpcion2>=1)) then
 						IngreseListaTemasPorDj(listatemas, nomDjs, temasPorDj, MLDjs);
 					else
-						writeln('Tiene que ingresar primero la lista de canciones y la de Djs antes de poder completar esta.');
-						opcionmen1:=0;
+						begin
+							writeln('Tiene que ingresar primero la lista de canciones y la de Djs antes de poder completar esta.');
+							opcionmen1:=0;
+						end
         else writeln('Ingreso una opcion invalida, vuelva a elegir una opción');    
         end;     
      until ((opcionmen1>=OPMIN) and (opcionmen1<=OPMAX));   
