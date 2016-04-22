@@ -187,7 +187,7 @@ var
 	temasPorDj:tmTemasPorDj;
     opcionmen1:byte;
     contadorOpcion1:byte;
-    contadorOpcion:byte;
+    contadorOpcion2:byte;
 BEGIN 
     contadorOpcion1:=0;
     contadorOpcion2:=0;
