@@ -104,10 +104,11 @@ end;
 
 
 
-Procedure IngreseListaTemasPorDj();
+Procedure IngreseListaTemasPorDj(listatemas:tmListaTemas; nomDjs:tvNomDjs; var temasPorDj);
 
 
-Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasxDj:tmTemasPorDj );
+
+Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj );
 const 
      OPMAX=1;
      OPMIN=3;
@@ -138,7 +139,7 @@ begin
         3: 
 				begin
 					if (contadorOpcion1=>1) AND (contadorOpcion2=>1) then
-						IngreseListaTemasPorDj(temasxDj);
+						IngreseListaTemasPorDj(temasPorDj);
 					else
 						opcionmen1=0;
 					
@@ -149,7 +150,7 @@ end;
 var 
     listatemas:tmListaTemas;
 	nomDjs:tvNomDjs;
-	temasxDj:tmTemasPorDj;
+	temasPorDj:tmTemasPorDj;
     i:byte;
 BEGIN 
     Menu1(listatemas,nomDjs,tmTemasPorDj);
