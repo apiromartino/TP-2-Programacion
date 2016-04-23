@@ -13,8 +13,8 @@ begin
 	case opcionsubmenu1 of
 		1:
 		2:
-		3:
-	else writeln('Escogio una opcion invalida, vuelva a elegir');
+		3:writeln ('Salio del Listado de Djs');
+	else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');
 	end;
 
 end;
@@ -62,7 +62,7 @@ begin
 			2: Submenu2(listatemas);
 			3: Submenu3(listatemas,temasPorDj);
 			4: writeln('Salio del Listado de Datos');
-        else writeln('Ingreso una opcion invalida, vuelva a elegir una opción');    
+        else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');    
         end;     
      until (opcionmen2=4);   
 end;
