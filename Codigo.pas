@@ -144,12 +144,10 @@ begin
 end;
 
 
-Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj;var opcionmen1:byte;var contadorOpcion1:byte;var contadorOpcion2:byte);
+Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj;var opcionmen1:byte;var contadorOpcion1:byte;var contadorOpcion2:byte;var MLDjs:tiDjs);
 const 
     OPMAX=3;
     OPMIN=1;
-var
-	MLDjs:tiDjs;
 begin
      writeln('Ingrese la opción deseada');
      writeln('1- Ingresar lista de temas');
@@ -183,15 +181,16 @@ end;
 
 var 
     listatemas:tmListaTemas;
-	nomDjs:tvNomDjs;
-	temasPorDj:tmTemasPorDj;
+    nomDjs:tvNomDjs;
+    temasPorDj:tmTemasPorDj;
     opcionmen1:byte;
     contadorOpcion1:byte;
     contadorOpcion2:byte;
+    MLDjs:tiDjs
 BEGIN 
     contadorOpcion1:=0;
     contadorOpcion2:=0;
     repeat
-		Menu1(listatemas,nomDjs,temasPorDj,opcionmen1,contadorOpcion1,contadorOpcion2);
+		Menu1(listatemas,nomDjs,temasPorDj,opcionmen1,contadorOpcion1,contadorOpcion2,MLDjs);
 	until (opcionmen1=3);	
 END.
