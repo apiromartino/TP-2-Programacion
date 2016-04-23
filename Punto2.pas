@@ -1,9 +1,21 @@
 Procedure Submenu1(nomDjs:TvNomDjs; MLDjs:tiDjs );
 
 var
-
+	opcionsubmenu1:byte;
+	
 begin
-
+	writeln('Ingrese la opcion deseada');
+	repeat
+	writeln('1- Orden en que fueron ingresados');
+	writeln('2- Ordenados alfabeticamente en forma ascendente');
+	writeln('3- Salir de esta lista');
+	readln(opcionsubmenu1);
+	case opcionsubmenu1 of
+		1:
+		2:
+		3:
+	else writeln('Escogio una opcion invalida, vuelva a elegir');
+	end;
 
 end;
 
@@ -60,8 +72,7 @@ end;
 var
 
 BEGIN
-writeln('Listado de Datos');
-
-Menu2(listatemas,nomDjs,temasPorDj,MLDjs); 
+	writeln('Listado de Datos');
+	Menu2(listatemas,nomDjs,temasPorDj,MLDjs); 
 
 END.
