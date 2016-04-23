@@ -30,10 +30,10 @@ begin
          readln(min);
          VAL(min,minnum,codigo);
          if (minnum>MAXMIN) then
-             writeln('Supera los ',MAXMIN,' minutos, vuelva a ingrasar nuevamente')
+             writeln('Supera los ',MAXMIN,' minutos, vuelva a ingrasar nuevamente');
          if (codigo<>0) then
 			 writeln('Ingreso un valor invalido, vuelva a ingresar nuevamente')	
-         until ((codigo=0) and (minnum<=MAXMIN));
+     until ((codigo=0) and (minnum<=MAXMIN));
      
 end;
 
@@ -108,42 +108,63 @@ end;
 
 
 
-Procedure IngreseListaTemasPorDj(listatemas:tmListaTemas; nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj; MLDjs:tiDjs);
-var
-	i:byte;
-	j:byte;
-	k:byte;
-	numeroTemaAgregado:tiTemas;
-begin
-	{writeln('Ingrese el numero de DJ del cual desea armar la lista de temas.')
-	for i:=1 to MLDjs do
-		writeln(i,': ', nomDjs[i]);
-	readln(numeroDJAgregarTemas);
-	if (numeroDJAgregarTemas>MLDjs) OR (numeroDJAgregarTemas=<0) then
-		while (numeroDJAgregarTemas>MLDjs) OR (numeroDJAgregarTemas=<0) do
-			begin
-				writeln("Eligio un numero incorrecto. Ingrese un numero nuevamente.");
-				readln(numeroDJAgregarTemas);
-			end;}
-	{Habia hecho esto para que pueda elegir de que dj agregar temas, pero es al pedo, voy a hacer que lo haga uno por uno en un for.}		
-	for i:=1 to MLDjs do
-	begin
-		writeln('Agregue los temas para el dj', nomDjs[i], ', que ocupa el puesto numero ', i, ' en la lista.');
-		writeln('Esta es la lista de temas:');
-		for j:=1 to MAXTEM do {Esto podria ser un procedure la verdad, 'presentarTemas' se podria llamar, alguno que lo escriba y reemplace aca asi queda}
-							   {mas modular el codigo. Lo que hace es mostrarle al usuario los temas y el numero que tiene que ingresar para meter ese tema.}
-			writeln(j,' ', listatemas[j]);
-		for k:=1 to {a ver} do
-			begin
-				writeln('Ingreses el tema que ocupara el puesto');
-				readln(numeroTemaAgregado); {IMPORTANTE: AGREGAR CONDICIONAL PARA QUE CHEQUEE LA LISTA FIJANDOSE SI EL TEMA YA FUE AGREGADO ANTES (NO SE PUEDEN REPETIR TEMAS POR DJ)}
-				temasPorDj[i][k] := listatemas[numeroTemaAgregado]; {no estoy seguro si esta bien escrito esto, la idea es que en el lugar k del vector de vectores meta un string que}
-											{corresponde con el tema numero 'numeroTemaAgregado' del arreglo con temas.}
-																
-			end;													
-	end;			
+Procedure validartema(var tema:string; listatemas:tmListaTemas);
 
-end;
+        var i:byte;
+            boleano:boolean;
+        begin
+           boleano:=false;
+           i:=1;
+            repeat
+               if  (tema=listatemas[i,nombre]) then
+                       boleano:=true
+
+               else
+                    if (i=MAXTEM) then
+                      begin
+                       writeln('El tema ingresado no pertenece a la lista de temas.');
+                       writeln('Reingrese el tema: ');
+                       readln(tema);
+                       i:=1;
+                      end
+                     else
+                       begin
+                        if (tema='0') then
+                            boleano:=true
+                        else
+                           i:=i+1;
+                       end;
+            until(boleano=true);
+
+
+        end;
+
+Procedure IngreseListatemasPorDj(Listatemas:tmListaTemas; nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj; MLDjs:tiDjs);
+        var  i,j:byte;                                   {Falta validar bien esto que se esta ocupando Ernesto, para que no se pueda repetir la cancion}
+             tema:string;                                                                                
+             nombreDj:string;
+
+        Begin
+            writeln('Ingrese la lista de temas para cada Dj. ');
+            writeln('ingrese 0 para concluir la lista de cada Dj.');
+              for i:=1 to MLDjs do
+                Begin
+
+                    Write(nomDjs[i],': ');
+                         j:=1;
+                         repeat
+                           write(j,'§ ');
+                           readln(tema);
+                           validartema(tema,listatemas);
+                           temasPorDj[i,j]:=tema;
+                          j:=j+1;
+                          if (j=MAXTemasPorDj+1) then
+                            tema:='0';
+                         until(tema='0');
+
+                end;
+
+        End;
 
 
 Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj;var opcionmen1:byte;var contadorOpcion1:byte;var contadorOpcion2:byte;var MLDjs:tiDjs);
@@ -176,7 +197,126 @@ begin
 						end;
         else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');    
         end;     
-     until ((opcionmen1=3);   
+     until (opcionmen1=3);   
+end;
+
+Procedure Submenu1(nomDjs:TvNomDjs; MLDjs:tiDjs );
+
+var
+	opcionsubmenu1:byte;
+	
+begin
+	writeln('Ingrese la opcion deseada');
+	repeat
+		writeln('1- Orden en que fueron ingresados');
+		writeln('2- Ordenados alfabeticamente en forma ascendente');
+		writeln('3- Salir de esta lista');
+		readln(opcionsubmenu1);
+		case opcionsubmenu1 of
+			1: OrdenDeIngreso(nomDjs,MLDjs);
+			2: OrdenAlfabetico(nomDjs,MLDjs);
+			3: writeln ('Salio del Listado de Djs');
+		else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');
+		end;
+	until (opcionsubmenu1=3);
+end;
+
+
+
+Procedure Submenu2 (listatemas:tmListaTemas);
+
+var
+	opcionsubmenu2:byte;
+	
+begin
+	writeln('Ingrese la opcion deseada');
+	repeat
+		writeln('1- Orden por duracion en forma descendente');
+		writeln('2- Ordenados alfabeticamente en forma ascendente');
+		writeln('3- Salir de esta lista');
+		readln(opcionsubmenu2);
+		case opcionsubmenu2 of
+			1: OrdenDuracion(listatemas);
+			2: OrdenAlfabetico2(listatemas);
+			3: writeln ('Salio del Listado de Temas');
+		else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');
+		end;
+	until (opcionsubmenu2=3);
+end;
+
+
+Procedure SalirLista(var opcionsubmenu3:byte);
+
+const
+	OPMAX=2;
+	OPMIN=1;
+
+begin
+	repeat
+		writeln('¿Desea salir de esta lista?');
+		writeln('1-Si');
+		writeln('2-No');
+		readln (opcionsubmenu3);
+	until ((opcionsubmenu3<=OPMAX) and (opcionsubmenu3>=OPMIN));
+
+end;
+
+
+
+Procedure Submenu3 (listatemas:tmListaTemas; temasPorDj:tmTemasPorDj);
+
+const
+	OPMAX=2;
+	OPMIN=1;
+
+var
+	opcionsubmenu3:byte;
+	nomDj:string;
+begin
+	repeat
+		writeln('Ingrese el nombre del Dj que desee para ver los temas que va a tocar');
+		readln(nomDj);
+		writeln('Ingrese la opcion deseada');
+		repeat
+			writeln('1- Temas ordenados por duracion');
+			writeln('2- Temas en el orden de ingreso');
+			readln(opcionsubmenu3);
+			case opcionsubmenu3 of
+				1: OrdenDuracion(listatemas,temasPorDj,nomDj);
+				2: OrdenDeIngreso2(temasPorDj,nomDj);
+			else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');
+			end;
+		until ((opcionsubmenu3<=OPMAX) and (opcionsubmenu3>=OPMIN));	
+		SalirLista(opcionsubmenu3);
+	until (opcionsubmenu3=1);	
+		
+end;
+
+
+
+
+Procedure Menu2(listatemas:tmListaTemas;nomDjs:tvNomDjs;temasPorDj:tmTemasPorDj;MLDjs:tiDjs);
+
+    
+var
+	opcionmen2:byte;
+	
+begin
+     writeln('Ingrese la opción deseada');
+     repeat
+		writeln('1- Listado de Dj');
+		writeln('2- Listado de Temas');
+		writeln('3- Listado de Temas de un Dj determinado');
+		writeln('4- Salir de Listado de Datos');
+		readln(opcionmen2);
+		case opcionmen2 of
+			1: Submenu1(nomDjs,MLDjs);
+			2: Submenu2(listatemas);
+			3: Submenu3(listatemas,temasPorDj);
+			4: writeln('Salio del Listado de Datos');
+        else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');    
+        end;     
+     until (opcionmen2=4);   
 end;
 
 var 
@@ -188,6 +328,7 @@ var
     contadorOpcion2:byte;
     MLDjs:tiDjs
 BEGIN 
-		Menu1(listatemas,nomDjs,temasPorDj,opcionmen1,contadorOpcion1,contadorOpcion2,MLDjs);
-	
+	Menu1(listatemas,nomDjs,temasPorDj,opcionmen1,contadorOpcion1,contadorOpcion2,MLDjs);
+	writeln('Listado de Datos');
+	Menu2(listatemas,nomDjs,temasPorDj,MLDjs);	
 END.
