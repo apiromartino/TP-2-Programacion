@@ -1,0 +1,70 @@
+Procedure validartema(var tema:string; listatemas:tmListaTemas);
+{la idea de esta validacion era repetir desde
+ i:=1 hasta el maximo de temas (MAXTEM) una comparacion, comparar
+ la variable tema(la cual contiene el tema que ingresa el usuario
+ para ver si pertenece a la lista) con la posicion i-esima de la lista
+ de temas, cuando encuentre la equivalencia cambia boleano a true y sale del bucle
+ y del procedure validartema, basicamente, la idea es que la variable tema solo salga del procedimiento
+ si es valida, si no que se quede adentro hasta que el usuario ingrese un tema que
+ pertenezca.
+  Como dice en el codigo, si no cumple el primer if aumenta en 1 la i y vuelve
+  a preguntar si la posicion siguiente de la lista es igual a tema, y asi hasta que lo encuentra.
+  el tema es cuando no lo encuentra, por eso puse in if mas para cambiar
+  la variable y volverla a comparar con todas las canciones de la lista, para que
+  de una u otra orma tenga que terminar iingresando un tema de la lista, pero cuando pones un tema
+  de la lista que no sea el primero tira un error de ejecucion, y tira error cando mandas un tema
+  que no esta en la lista, como me duermo sobre la pc dejo esto asi lo siguen ustedes(si quieren
+  usar mi codigo, claro) ya que ma¤ana me levanto y tengo clases, faltaria pedir
+  que no repita el tema}
+        var i:titemas;
+            boleano:boolean;
+        begin
+           boleano:=false;
+           i:=1;
+            repeat
+               if  (tema=listatemas[i,nombre]) then
+                       boleano:=true
+
+               else
+                   repeat
+                       i:=i+1;
+                   until(i>MAXTEM);
+                    if i>MAXTEM then
+                     begin
+                      writeln('El tema ingresado no pertenece a la lista de temas.');
+                      write('Reingrese el tema: ');
+                      readln(tema);
+                      i:=1;
+                     end;
+            until(boleano=true);
+
+
+        end;
+
+Procedure IngreseListatemasPorDj(Listatemas:tmListaTemas; nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj; MLDjs:tiDjs);
+        var  i,j,corte,codigo:byte;
+             tema:string;
+             nombreDj:string;
+
+        Begin
+            writeln('Ingrese la lista de temas para cada Dj. ');
+            writeln('ingrese 0 para concluir la lista de cada Dj.');
+              for i:=1 to MLDjs do
+                Begin
+
+                    Write(nomDjs[i],': ');
+                     for j:=1 to MAXTemasPorDj do
+                       Begin
+                         repeat
+                           write(j,'§ ');
+                           readln(tema);
+
+                           validartema(tema,listatemas);
+                           temasPorDj[i,j]:=tema;
+
+                           {temasPorDj[i,j]:=tema;}{esto iria dentro de la validacion}
+                         until(corte<>0);
+                       end;
+                end;
+
+        End;
