@@ -145,15 +145,13 @@ end;
 
 
 Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj;var opcionmen1:byte;var contadorOpcion1:byte;var contadorOpcion2:byte;var MLDjs:tiDjs);
-const 
-    OPMAX=3;
-    OPMIN=1;
+
 begin
-     writeln('Ingrese la opción deseada');
+     writeln('Ingrese la opcion deseada');
+     repeat
      writeln('1- Ingresar lista de temas');
      writeln('2- Ingresar lista de Djs');
      writeln('3- Ingresar temas que va a tocar cada Dj');
-     repeat
 		readln(opcionmen1);
 		case opcionmen1 of
 			1: 
@@ -176,21 +174,18 @@ begin
 						end;
         else writeln('Ingreso una opcion invalida, vuelva a elegir una opción');    
         end;     
-     until ((opcionmen1>=OPMIN) and (opcionmen1<=OPMAX));   
+     until ((opcionmen1=3);   
 end;
 
 var 
     listatemas:tmListaTemas;
-    nomDjs:tvNomDjs;
-    temasPorDj:tmTemasPorDj;
+	nomDjs:tvNomDjs;
+	temasPorDj:tmTemasPorDj;
     opcionmen1:byte;
     contadorOpcion1:byte;
     contadorOpcion2:byte;
     MLDjs:tiDjs
 BEGIN 
-    contadorOpcion1:=0;
-    contadorOpcion2:=0;
-    repeat
 		Menu1(listatemas,nomDjs,temasPorDj,opcionmen1,contadorOpcion1,contadorOpcion2,MLDjs);
-	until (opcionmen1=3);	
+	
 END.
