@@ -172,7 +172,7 @@ begin
 							writeln('Tiene que ingresar primero la lista de canciones y la de Djs antes de poder completar esta.');
 							opcionmen1:=0;
 						end;
-        else writeln('Ingreso una opcion invalida, vuelva a elegir una opción');    
+        else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');    
         end;     
      until ((opcionmen1=3);   
 end;
