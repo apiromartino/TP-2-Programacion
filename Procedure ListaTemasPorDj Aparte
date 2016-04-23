@@ -1,6 +1,7 @@
 {Falta validar que la cancion este en la lista de los 200 temas y que no se repita la cancion el mismo Dj, 
 el unico problema es que si ponen un tema de 1 letra sale del while
-y le pregunta el otro el primer tema. Pero Funciona!!}
+y le pregunta el otro el primer tema. Pero Funciona!!
+Tambien no fuciona lo de que si pone 35 temas pase al Dj siguiente}
 
 
 
