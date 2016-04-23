@@ -34,8 +34,8 @@ begin
 		writeln('3- Salir de esta lista');
 		readln(opcionsubmenu2);
 		case opcionsubmenu2 of
-			1: OrdenDuracion(listatemas:tmListaTemas);
-			2: OrdenAlfabetico2(listatemas:tmListaTemas);
+			1: OrdenDuracion(listatemas);
+			2: OrdenAlfabetico2(listatemas);
 			3: writeln ('Salio del Listado de Temas');
 		else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');
 		end;
@@ -93,7 +93,7 @@ end;
 
 
 
-Procedure Menu2(listatemas:tmListaTemas;nomDjs:tvNomDjs;temasPorDj:tmTemasPorDj,MLDjs);
+Procedure Menu2(listatemas:tmListaTemas;nomDjs:tvNomDjs;temasPorDj:tmTemasPorDj;MLDjs:tiDjs);
 
     
 var
