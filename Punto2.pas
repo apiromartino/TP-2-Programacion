@@ -6,17 +6,17 @@ var
 begin
 	writeln('Ingrese la opcion deseada');
 	repeat
-	writeln('1- Orden en que fueron ingresados');
-	writeln('2- Ordenados alfabeticamente en forma ascendente');
-	writeln('3- Salir de esta lista');
-	readln(opcionsubmenu1);
-	case opcionsubmenu1 of
-		1:
-		2:
-		3:writeln ('Salio del Listado de Djs');
-	else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');
-	end;
-
+		writeln('1- Orden en que fueron ingresados');
+		writeln('2- Ordenados alfabeticamente en forma ascendente');
+		writeln('3- Salir de esta lista');
+		readln(opcionsubmenu1);
+		case opcionsubmenu1 of
+			1: OrdenDeIngreso(nomDjs,MLDjs);
+			2: OrdenAlfabetico(nomDjs,MLDjs);
+			3: writeln ('Salio del Listado de Djs');
+		else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');
+		end;
+	until (opcionsubmenu1=3);
 end;
 
 
@@ -24,8 +24,38 @@ end;
 Procedure Submenu2 (listatemas:tmListaTemas);
 
 var
+	opcionsubmenu2:byte;
+	
+begin
+	writeln('Ingrese la opcion deseada');
+	repeat
+		writeln('1- Orden por duracion en forma descendente');
+		writeln('2- Ordenados alfabeticamente en forma ascendente');
+		writeln('3- Salir de esta lista');
+		readln(opcionsubmenu2);
+		case opcionsubmenu2 of
+			1: OrdenDuracion(listatemas:tmListaTemas);
+			2: OrdenAlfabetico2(listatemas:tmListaTemas);
+			3: writeln ('Salio del Listado de Temas');
+		else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');
+		end;
+	until (opcionsubmenu2=3);
+end;
+
+
+Procedure SalirLista(var opcionsubmenu3:byte);
+
+const
+	OPMAX=2;
+	OPMIN=1;
 
 begin
+	repeat
+		writeln('¿Desea salir de esta lista?');
+		writeln('1-Si');
+		writeln('2-No');
+		readln (opcionsubmenu3);
+	until ((opcionsubmenu3<=OPMAX) and (opcionsubmenu3>=OPMIN));
 
 end;
 
@@ -33,10 +63,31 @@ end;
 
 Procedure Submenu3 (listatemas:tmListaTemas; temasPorDj:tmTemasPorDj);
 
+const
+	OPMAX=2;
+	OPMIN=1;
+
 var
-
+	opcionsubmenu3:byte;
+	nomDj:string;
 begin
-
+	repeat
+		writeln('Ingrese el nombre del Dj que desee para ver los temas que va a tocar');
+		readln(nomDj);
+		writeln('Ingrese la opcion deseada');
+		repeat
+			writeln('1- Temas ordenados por duracion');
+			writeln('2- Temas en el orden de ingreso');
+			readln(opcionsubmenu3);
+			case opcionsubmenu3 of
+				1: OrdenDuracion(listatemas,temasPorDj,nomDj);
+				2: OrdenDeIngreso2(temasPorDj,nomDj);
+			else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');
+			end;
+		until ((opcionsubmenu3<=OPMAX) and (opcionsubmenu3>=OPMIN));	
+		SalirLista(opcionsubmenu3);
+	until (opcionsubmenu3=1);	
+		
 end;
 
 
@@ -51,11 +102,10 @@ var
 begin
      writeln('Ingrese la opción deseada');
      repeat
-     writeln('1- Listado de Dj');
-     writeln('2- Listado de Temas');
-     writeln('3- Listado de Temas de un Dj determinado');
-     writeln('4- Salir de Listado de Datos');
-     
+		writeln('1- Listado de Dj');
+		writeln('2- Listado de Temas');
+		writeln('3- Listado de Temas de un Dj determinado');
+		writeln('4- Salir de Listado de Datos');
 		readln(opcionmen2);
 		case opcionmen2 of
 			1: Submenu1(nomDjs,MLDjs);
