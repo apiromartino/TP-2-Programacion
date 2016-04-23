@@ -25,13 +25,14 @@ var
      codigo:byte;
 
 begin
-     repeat
-         write('Minutos:');
+     while ((codigo>0) or (minnum>MAXMIN)) do
+       BEGIN
+         write('Ingrese los minutos de la forma mm: ');
          readln(min);
          VAL(min,minnum,codigo);
-         if (minnum>MAXMIN) then
-             writeln('Supera los ',MAXMIN,' minutos, vuelva a ingrasar nuevamente');
-         until (minnum<=MAXMIN);
+         if (minnum>MAXMIN) or (codigo>o) then
+             writeln('Ha ingresado un valor no permitido, ');
+       END;
      
 end;
 
