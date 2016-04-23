@@ -21,7 +21,7 @@ begin
 		readln(tema);
 		temasPorDj[i,j]:=tema;		
 		VAL(tema,corte,codigo);
-		while ((corte<>0) or (LENGHT(tema)>1)) do 
+		while ((corte<>0) or (LENGTH(tema)>1)) do 
 			begin
 				j:=j+1;
 				writeln('Nombre del tema ',j);
