@@ -30,8 +30,10 @@ begin
          readln(min);
          VAL(min,minnum,codigo);
          if (minnum>MAXMIN) then
-             writeln('Supera los ',MAXMIN,' minutos, vuelva a ingrasar nuevamente');
-         until (minnum<=MAXMIN);
+             writeln('Supera los ',MAXMIN,' minutos, vuelva a ingrasar nuevamente')
+         if (codigo<>0) then
+			 writeln('Ingreso un valor invalido, vuelva a ingresar nuevamente')	
+         until ((codigo=0) and (minnum<=MAXMIN));
      
 end;
 
