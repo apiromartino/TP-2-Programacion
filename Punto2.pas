@@ -38,6 +38,7 @@ var
 	
 begin
      writeln('Ingrese la opción deseada');
+     repeat
      writeln('1- Listado de Dj');
      writeln('2- Listado de Temas');
      writeln('3- Listado de Temas de un Dj determinado');
