@@ -61,7 +61,6 @@ var
 BEGIN
 writeln('Listado de Datos');
 
-Menu2(listatemas,nomDjs,temasPorDj,MLDjs); {Hay que hace que pueda elegir estas opciones y ver la lista hasta el punto que quiera, una vez que no quere seguira con otro procedimiento que sera el pto 3 y 4.
-                                             pero la idea es que pueda ver las listas todas las veces que quiera}
+Menu2(listatemas,nomDjs,temasPorDj,MLDjs); 
 
 END.
