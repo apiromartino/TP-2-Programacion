@@ -140,8 +140,8 @@ Procedure validartema(var tema:string; listatemas:tmListaTemas);
         end;
 
 Procedure IngreseListatemasPorDj(Listatemas:tmListaTemas; nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj; MLDjs:tiDjs);
-        var  i,j:byte;                                   {Falta validar bien esto que se esta ocupando Ernesto, para que no se pueda repetir la cancion}
-             tema:string;                                                                                
+        var  i,j:byte;
+             tema:string;
              nombreDj:string;
 
         Begin
@@ -167,7 +167,11 @@ Procedure IngreseListatemasPorDj(Listatemas:tmListaTemas; nomDjs:tvNomDjs; var t
         End;
 
 
-Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj;var opcionmen1:byte;var contadorOpcion1:byte;var contadorOpcion2:byte;var MLDjs:tiDjs);
+Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj;var opcionmen1:byte;var MLDjs:tiDjs);
+
+var
+	contadoropcion1:byte;
+	contadoropcion2:byte;
 
 begin
      writeln('Ingrese la opcion deseada');
@@ -199,6 +203,7 @@ begin
         end;     
      until (opcionmen1=3);   
 end;
+
 
 Procedure Submenu1(nomDjs:TvNomDjs; MLDjs:tiDjs );
 
@@ -324,11 +329,9 @@ var
 	nomDjs:tvNomDjs;
 	temasPorDj:tmTemasPorDj;
     opcionmen1:byte;
-    contadorOpcion1:byte;
-    contadorOpcion2:byte;
     MLDjs:tiDjs
 BEGIN 
-	Menu1(listatemas,nomDjs,temasPorDj,opcionmen1,contadorOpcion1,contadorOpcion2,MLDjs);
+	Menu1(listatemas,nomDjs,temasPorDj,opcionmen1,MLDjs);
 	writeln('Listado de Datos');
 	Menu2(listatemas,nomDjs,temasPorDj,MLDjs);	
 END.
