@@ -2,10 +2,13 @@ Universidad de Buenos Aires Algoritmos y Programación I
 Facultad de Ingeniería 75-40 Azcurra-Salvia-Bianchi Otero
 Enunciado del Trabajo Práctico Número 1
 Primer Cuatrimestre 2016
+
 La empresa organizadora de un festival de música electrónica necesita un programa para organizar y realizar estadísticas acerca de los artistas y los temas que tocaran cada uno de ellos durante el festival.
+
 Se sabe que hay como máximo 25 Djs y cada uno tocara como máximo 35 temas (puede tocar menos).
 Además existe una lista oficial de temas (con el nombre del tema y la duración de cada uno) disponible para todos los Djs que incluye 200 temas. Un Dj solo podrá tocar temas que estén en la lista. Un Dj no pueden repetir temas pero un tema puede ser tocado por más de un Dj.
 Se pide realizar un programa Pascal que permita:
+
 1) Ingresar la lista general de temas ingresando el nombre y la duración de cada uno de los temas de la forma MM:SS., la lista con los nombres de los Dj, y los nombres de los temas que tocara cada uno a partir de la lista total de temas presentados. Para este punto se debe presentar un menú que permita seleccionar la opción deseada. Al momento de realizar el ingreso de datos se debe:
 a) Validar que los temas ingresados para cada Dj existan en la lista general de temas presentados.
 b) Validar el ingreso de la duración de los temas. Un tema no puede durar más de 10 minutos.
