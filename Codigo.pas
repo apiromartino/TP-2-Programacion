@@ -139,7 +139,7 @@ Procedure validartema(var tema:string; listatemas:tmListaTemas);
 
         end;
 
-Procedure IngreseListatemasPorDj(Listatemas:tmListaTemas; nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj; MLDjs:tiDjs);
+Procedure IngreseListatemasPorDj(listatemas:tmListaTemas; nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj; MLDjs:tiDjs);
         var  i,j:byte;
              tema:string;
              nombreDj:string;
@@ -170,15 +170,17 @@ Procedure IngreseListatemasPorDj(Listatemas:tmListaTemas; nomDjs:tvNomDjs; var t
 Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj;var opcionmen1:byte;var MLDjs:tiDjs);
 
 var
-	contadoropcion1:byte;
-	contadoropcion2:byte;
+	contadorOpcion1:byte;
+	contadorOpcion2:byte;
 
 begin
      writeln('Ingrese la opcion deseada');
+     contadorOpcion1:=0;
+	 contadorOpcion2:=0;
      repeat
-     writeln('1- Ingresar lista de temas');
-     writeln('2- Ingresar lista de Djs');
-     writeln('3- Ingresar temas que va a tocar cada Dj');
+		writeln('1- Ingresar lista de temas');
+		writeln('2- Ingresar lista de Djs');
+		writeln('3- Ingresar temas que va a tocar cada Dj');
 		readln(opcionmen1);
 		case opcionmen1 of
 			1: 
@@ -329,7 +331,7 @@ var
 	nomDjs:tvNomDjs;
 	temasPorDj:tmTemasPorDj;
     opcionmen1:byte;
-    MLDjs:tiDjs
+    MLDjs:tiDjs;
 BEGIN 
 	Menu1(listatemas,nomDjs,temasPorDj,opcionmen1,MLDjs);
 	writeln('Listado de Datos');
