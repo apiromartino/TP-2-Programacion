@@ -182,7 +182,7 @@ begin
 	writeln('1- Ingresar lista de temas');
 	writeln('2- Ingresar lista de Djs');
 	writeln('3- Ingresar temas que va a tocar cada Dj');
-		readln(opcionmen1);
+	readln(opcionmen1);
 		case opcionmen1 of
 			1: 
 				begin
@@ -195,15 +195,15 @@ begin
 					djsIngresados:=true;
 				end;	
 			3: 
-					if temasIngresados AND djsIngresados then
-						begin
-						IngreseListaTemasPorDj(listatemas, nomDjs, temasPorDj, MLDjs)
-						temasPorDjIngresados:=true;
-						end;
-					else
-						begin
-							writeln('Tiene que ingresar primero la lista de canciones y la de Djs antes de poder completar esta.');
-						end;
+				if temasIngresados AND djsIngresados then
+					begin
+					IngreseListaTemasPorDj(listatemas, nomDjs, temasPorDj, MLDjs);
+					temasPorDjIngresados:=true;
+					end;
+			else
+				begin
+					writeln('Tiene que ingresar primero la lista de canciones y la de Djs antes de poder completar esta.');
+				end;
         else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');    
         end;     
      until temasIngresados AND djsIngresados AND temasPorDjIngresados;   
@@ -330,8 +330,8 @@ end;
 
 var 
     listatemas:tmListaTemas;
-	nomDjs:tvNomDjs;
-	temasPorDj:tmTemasPorDj;
+    nomDjs:tvNomDjs;
+    temasPorDj:tmTemasPorDj;
     opcionmen1:byte;
     MLDjs:tiDjs
 BEGIN 
