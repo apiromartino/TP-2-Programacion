@@ -200,12 +200,10 @@ begin
 					IngreseListaTemasPorDj(listatemas, nomDjs, temasPorDj, MLDjs);
 					temasPorDjIngresados:=true;
 					end;
-			else
-				begin
-					writeln('Tiene que ingresar primero la lista de canciones y la de Djs antes de poder completar esta.');
-				end;
-        else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');    
-        end;     
+			else	writeln('Tiene que ingresar primero la lista de canciones y la de Djs antes de poder completar esta.');
+			
+                else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');    
+                end;     
      until temasIngresados AND djsIngresados AND temasPorDjIngresados;   
 end;
 
