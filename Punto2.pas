@@ -28,6 +28,7 @@ end;
 
 Procedure Submenu1(nomDjs:TvNomDjs; MLDjs:tiDjs );
 
+
 var
 	opcionsubmenu1:byte;
 	
@@ -51,10 +52,18 @@ end;
 
 Procedure Submenu2 (listatemas:tmListaTemas);
 
+type
+	tvNombreTema=array[tiTemas] of string[20];
+
 var
 	opcionsubmenu2:byte;
-	
+	maxvector:byte;
+	i:byte;
+	nombreTema:tvNombreTema;
 begin
+	for i:=1 to MAXTEM do
+		nombreTema[i]:=listatemas[i,nombre];
+	maxvector:=MAXTEM;
 	writeln('Ingrese la opcion deseada');
 	repeat
 		writeln('1- Orden por duracion en forma descendente');
@@ -63,7 +72,7 @@ begin
 		readln(opcionsubmenu2);
 		case opcionsubmenu2 of
 			1: OrdenDuracion(listatemas);
-			2: OrdenAlfabetico2(listatemas);
+			2: OrdenAlfabetico(listatemas,maxvector);
 			3: writeln ('Salio del Listado de Temas');
 		else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');
 		end;
