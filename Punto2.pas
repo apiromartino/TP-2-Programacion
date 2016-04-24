@@ -65,6 +65,39 @@ begin
 		writeln(listatemas[i,nombre]);
 end;
 
+
+Procedure OrdenDuracion2(listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; nombre:string);
+
+var
+
+begin
+
+end;
+
+
+
+Procedure OrdenDeIngreso2(temasPorDj:tmTemasPorDj; nombre:string;nomDjs:tvNomDjs);
+
+var
+	i:byte;
+	k:byte;
+	j:byte;
+begin
+	i:=1;
+	while nomDjs[i]<>nombre do
+		i:=i+1;
+	j:=1;
+	k:=1;
+	while (temasPorDj[i,j]<>'0') do
+		begin
+			writeln(k,'- ',temasPorDj[i][j]);
+			j:=j+1;
+			k:=k+1;
+		end;	
+end;
+
+
+
 Procedure Submenu1(nomDjs:TvNomDjs; MLDjs:tiDjs );
 
 
@@ -95,9 +128,6 @@ var
 	opcionsubmenu2:byte;
 	i:byte;
 begin
-	for i:=1 to MAXTEM do
-		nombreTema[i]:=listatemas[i,nombre];
-	maxvector:=MAXTEM;
 	writeln('Ingrese la opcion deseada');
 	repeat
 		writeln('1- Orden por duracion en forma descendente');
@@ -132,7 +162,7 @@ end;
 
 
 
-Procedure Submenu3 (listatemas:tmListaTemas; temasPorDj:tmTemasPorDj);
+Procedure Submenu3 (listatemas:tmListaTemas; temasPorDj:tmTemasPorDj;nomDjs:tvNomDjs);
 
 const
 	OPMAX=2;
@@ -152,7 +182,7 @@ begin
 			readln(opcionsubmenu3);
 			case opcionsubmenu3 of
 				1: OrdenDuracion2(listatemas,temasPorDj,nombre);
-				2: OrdenDeIngreso2(temasPorDj,nombre);
+				2: OrdenDeIngreso2(temasPorDj,nombre,nomDjs);
 			else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');
 			end;
 		until ((opcionsubmenu3<=OPMAX) and (opcionsubmenu3>=OPMIN));	
