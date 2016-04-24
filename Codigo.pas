@@ -168,36 +168,45 @@ Procedure IngreseListatemasPorDj(Listatemas:tmListaTemas; nomDjs:tvNomDjs; var t
 
 
 Procedure Menu1(var listatemas:tmListaTemas; var nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj;var opcionmen1:byte;var contadorOpcion1:byte;var contadorOpcion2:byte;var MLDjs:tiDjs);
+var
+	temasIngresados:boolean;
+	djsIngresados:boolean;
+	temasPorDjIngresados:boolean;
 
 begin
-     writeln('Ingrese la opcion deseada');
-     repeat
-     writeln('1- Ingresar lista de temas');
-     writeln('2- Ingresar lista de Djs');
-     writeln('3- Ingresar temas que va a tocar cada Dj');
+	temasIngresados:=false;
+	djsIngresados:=false;
+	temasPorDjIngresados:=false;
+	writeln('Ingrese la opcion deseada');
+	repeat
+	writeln('1- Ingresar lista de temas');
+	writeln('2- Ingresar lista de Djs');
+	writeln('3- Ingresar temas que va a tocar cada Dj');
 		readln(opcionmen1);
 		case opcionmen1 of
 			1: 
 				begin
 					IngreseListaTemas(listatemas);
-					contadorOpcion1:=contadorOpcion1 + 1;
+					temasIngresados:=true;
 				end;
 			2:	 
 				begin
 					IngreseListaDjs(nomDjs, MLDjs);
-					contadorOpcion2:=contadorOpcion2 + 1;
+					djsIngresados:=true;
 				end;	
 			3: 
-					if ((contadorOpcion1>=1) AND (contadorOpcion2>=1)) then
+					if temasIngresados AND djsIngresados then
+						begin
 						IngreseListaTemasPorDj(listatemas, nomDjs, temasPorDj, MLDjs)
+						temasPorDjIngresados:=true;
+						end;
 					else
 						begin
 							writeln('Tiene que ingresar primero la lista de canciones y la de Djs antes de poder completar esta.');
-							opcionmen1:=0;
 						end;
         else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');    
         end;     
-     until (opcionmen1=3);   
+     until temasIngresados AND djsIngresados AND temasPorDjIngresados;   
 end;
 
 Procedure Submenu1(nomDjs:TvNomDjs; MLDjs:tiDjs );
