@@ -16,7 +16,8 @@ type
 	tiNomMinSeg=(nombre,minutos,segundos);
 	tmListaTemas=array [tiTemas,tiNomMinSeg] of string[20];
 	tvNomDjs=array [tiDjs] of string[40];
-	tmTemasPorDj=array [TiDjs,tiTemasPorDj] of string[40]; 
+	tmTemasPorDj=array [tiDjs,tiTemasPorDj] of string[40]; 
+	tvDuracion=array[tiTemas] of word;
 
 Procedure ValidarMinutos(var min:string);
 
@@ -59,8 +60,10 @@ begin
                begin
 					writeln('El tema supera los ',MAXMIN,' minutos, vuelva a ingresar los segundos restantes del tema');
 					correcto:=0;
-			   end;		
-     until ((correcto<>0) and (segnum<=MAXSEGS));           
+			   end;	
+		if (codigo2<>0) then
+			 writeln('Ingreso un valor invalido, vuelva a ingresar nuevamente')		   	
+     until ((correcto<>0) and (segnum<=MAXSEGS) and (codigo2=0));           
 
 end;      
 
@@ -276,15 +279,50 @@ begin
 		writeln(nomDjs[i]);
 end;
 
-Procedure OrdenDuracion(listatemas:tmListaTemas);
+Procedure Duracionminseg(var duracion:tvDuracion; listatemas:tmListaTemas);
 
 var
-	i:=byte;
+	i:byte;
+	minnum:byte;
+	segnum:byte;
+	total:word;
+	codigo1:byte;
+	codigo2:byte;
+begin
+	for i:=1 to MAXTEM do
+		begin
+			VAL(listatemas[i,minutos],minnum,codigo1);
+			VAL(listatemas[i,segundos],segnum,codigo2);
+			total:=(minnum*60)+segnum;
+			duracion[i]:=total;
+		end;
+
+end;
+
+Procedure OrdenDuracion(listatemas:tmListaTemas;duracion:tvDuracion);
+
+var
+	i:byte;
+	j:byte;
+	temporal:string [20];
 
 begin
-	
+	Duracionminseg(duracion,listatemas);
+	for i:=1 to MAXTEM do
+	begin
+		for j:=i+1 to MAXTEM do
+		begin
+			if (duracion[i]<duracion[j]) then  
+			begin
+				temporal:=listatemas[i,nombre];
+				listatemas[i,nombre]:=listatemas[j,nombre];
+				listatemas[j,nombre]:=temporal;
+			end;
+		end;	
+	end;
+	for i:=1 to MAXTEM do
+		writeln(listatemas[i,nombre]);
 		
-	
 end;
 
 Procedure OrdenAlfabetico2(listatemas:tmListaTemas);
@@ -368,7 +406,7 @@ end;
 
 
 
-Procedure Submenu2 (listatemas:tmListaTemas);
+Procedure Submenu2 (listatemas:tmListaTemas,duracion:tvDuracion);
 
 var
 	opcionsubmenu2:byte;
@@ -381,7 +419,7 @@ begin
 		writeln('3- Salir de esta lista');
 		readln(opcionsubmenu2);
 		case opcionsubmenu2 of
-			1: OrdenDuracion(listatemas);
+			1: OrdenDuracion(listatemas,duracion);
 			2: OrdenAlfabetico2(listatemas);
 			3: writeln ('Salio del Listado de Temas');
 		else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');
@@ -454,7 +492,7 @@ end;
 
 
 
-Procedure Menu2(listatemas:tmListaTemas;nomDjs:tvNomDjs;temasPorDj:tmTemasPorDj;MLDjs:tiDjs);
+Procedure Menu2(listatemas:tmListaTemas;nomDjs:tvNomDjs;temasPorDj:tmTemasPorDj;MLDjs:tiDjs; duracion:tvDuracion);
 
     
 var
@@ -470,7 +508,7 @@ begin
 		readln(opcionmen2);
 		case opcionmen2 of
 			1: Submenu1(nomDjs,MLDjs);
-			2: Submenu2(listatemas);
+			2: Submenu2(listatemas,duracion);
 			3: Submenu3(listatemas,temasPorDj,nomDjs,MLDjs);
 			4: writeln('Salio del Listado de Datos');
         else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');    
@@ -486,8 +524,9 @@ var
 	temasPorDj:tmTemasPorDj;
     opcionmen1:byte;
     MLDjs:tiDjs;
+    duracion:tvDuracion;
 BEGIN 
 	Menu1(listatemas,nomDjs,temasPorDj,opcionmen1,MLDjs);
 	writeln('Listado de Datos');
-	Menu2(listatemas,nomDjs,temasPorDj,MLDjs);	
+	Menu2(listatemas,nomDjs,temasPorDj,MLDjs,duracion);	
 END.
