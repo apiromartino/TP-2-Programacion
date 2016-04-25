@@ -1,6 +1,6 @@
-procedure DjsQueMasToca(VecTotalsegPordj:tvTotalsegPorDj; listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; MLDjs:tiDjs);
+procedure DjsQueMasToca(var VecTotalsegPordj:tvTotalsegPorDj; listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; MLDjs:tiDjs);
   var i,j,k,minnum,segnum,Parcial,codigo:byte;
-      Total:word;
+      Total:integer;
    begin
      for i:=1 to MLDjs do
      {nomDjs[i]}
