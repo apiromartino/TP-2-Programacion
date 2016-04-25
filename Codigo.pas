@@ -406,9 +406,24 @@ begin
 
 end;
 
+Procedure ValidarNombre(var nombre:string; nomDjs:tvNomDjs; MLDjs:tiDjs);
+
+var
+	i:byte;
+	boleano:boolean;
+begin
+	repeat
+		boleano:=false;
+		writeln('Ingrese el nombre del Dj que desee para ver los temas que va a tocar');
+		readln(nombre);
+		for i:=1 to MLDjs do
+				if nombre=nomDjs[i] then boleano:=true;
+		until (boleano=true);		
+		
+end;
 
 
-Procedure Submenu3 (listatemas:tmListaTemas; temasPorDj:tmTemasPorDj;nomDjs:tvNomDjs);
+Procedure Submenu3 (listatemas:tmListaTemas; temasPorDj:tmTemasPorDj;nomDjs:tvNomDjs; MLDjs:tiDjs);
 
 const
 	OPMAX=2;
@@ -419,8 +434,7 @@ var
 	nombre:string;
 begin
 	repeat
-		writeln('Ingrese el nombre del Dj que desee para ver los temas que va a tocar');
-		readln(nombre);
+		ValidarNombre(nombre,nomDjs,MLDjs);
 		writeln('Ingrese la opcion deseada');
 		repeat
 			writeln('1- Temas ordenados por duracion');
@@ -457,7 +471,7 @@ begin
 		case opcionmen2 of
 			1: Submenu1(nomDjs,MLDjs);
 			2: Submenu2(listatemas);
-			3: Submenu3(listatemas,temasPorDj,nomDjs);
+			3: Submenu3(listatemas,temasPorDj,nomDjs,MLDjs);
 			4: writeln('Salio del Listado de Datos');
         else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');    
         end;     
