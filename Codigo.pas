@@ -82,7 +82,7 @@ begin
        writeln('Ingrese el nombre del tema');
        readln(nom);
        listatemas[i,nombre]:= nom;
-       writeln('Duracion del tema, con un máximo de 10 minutos');
+       writeln('Duracion del tema, con un maximo de 10 minutos');
        ValidarMinutos(min);
        listatemas[i,minutos]:= min;
        ValidarSegs(seg,min);
