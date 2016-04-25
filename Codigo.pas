@@ -279,12 +279,15 @@ end;
 Procedure OrdenDuracion(listatemas:tmListaTemas);
 
 var
+	i:=byte;
 
 begin
 	
+		
+	
 end;
 
-Procedure OrdenAlfabetico2(lsitatemas:tmListTemas);
+Procedure OrdenAlfabetico2(listatemas:tmListaTemas);
 
 var 
 	i:byte;
@@ -296,10 +299,10 @@ begin
 	begin
 		for j:=i+1 to MAXTEM do
 		begin
-			if (lsitatemas[i,nombre]>lsitatemas[j,nombre]) then
+			if (listatemas[i,nombre]>listatemas[j,nombre]) then
 			begin
 				temporal:=listatemas[i,nombre];
-				listatemas[i,nombre]:=lsitatemas[j,nombre];
+				listatemas[i,nombre]:=listatemas[j,nombre];
 				listatemas[j,nombre]:=temporal;
 			end;
 		end;
@@ -379,7 +382,7 @@ begin
 		readln(opcionsubmenu2);
 		case opcionsubmenu2 of
 			1: OrdenDuracion(listatemas);
-			2: OrdenAlfabetico2(lsitatemas);
+			2: OrdenAlfabetico2(listatemas);
 			3: writeln ('Salio del Listado de Temas');
 		else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');
 		end;
@@ -454,7 +457,7 @@ begin
 		case opcionmen2 of
 			1: Submenu1(nomDjs,MLDjs);
 			2: Submenu2(listatemas);
-			3: Submenu3(listatemas,temasPorDj);
+			3: Submenu3(listatemas,temasPorDj,nomDjs);
 			4: writeln('Salio del Listado de Datos');
         else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');    
         end;     
@@ -463,13 +466,6 @@ end;
 
 
 
-var
-
-BEGIN
-	writeln('Listado de Datos');
-	Menu2(listatemas,nomDjs,temasPorDj,MLDjs); 
-
-END.
 var 
     listatemas:tmListaTemas;
 	nomDjs:tvNomDjs;
