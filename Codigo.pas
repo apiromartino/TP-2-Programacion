@@ -18,6 +18,7 @@ type
 	tvNomDjs=array [tiDjs] of string[40];
 	tmTemasPorDj=array [tiDjs,tiTemasPorDj] of string[40]; 
 	tvDuracion=array[tiTemas] of word;
+	tvSumaDuracion=array[tiDjs] of word;
 
 Procedure ValidarMinutos(var min:string);
 
@@ -299,7 +300,7 @@ begin
 
 end;
 
-Procedure OrdenDuracion(listatemas:tmListaTemas;duracion:tvDuracion);
+Procedure OrdenDuracion(listatemas:tmListaTemas; duracion:tvDuracion);
 
 var
 	i:byte;
@@ -307,7 +308,6 @@ var
 	temporal:string [20];
 
 begin
-	Duracionminseg(duracion,listatemas);
 	for i:=1 to MAXTEM do
 	begin
 		for j:=i+1 to MAXTEM do
@@ -349,13 +349,77 @@ begin
 		writeln(listatemas[i,nombre]);
 end;
 
-
-Procedure OrdenDuracion2(listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; nombre:string);
+Function PosicionDj (nombre:string; nomDjs:tvNomDjs):byte;
 
 var
+	i:byte;
+begin
+	i:=1;
+	while nomDjs[i]<>nombre do
+		i:=i+1;
+	PosicionDj:=i;
+
+end;
+
+Function PosicionTema(listatemas:tmListaTemas; temasPorDj:tmTemasPorDj;j:byte; i:byte):byte;
+
+var
+	k:byte;
 
 begin
+	k:=1;
+	while (listatemas[k,nombre]<>temasPorDj[i,j]) do
+	k:=j+1;
+	PosicionTema:=k;
+end; 
+	
 
+
+
+Function Cantidadtemas(i:byte; temasPorDj:tmTemasPorDj):byte;
+
+var
+	j:byte;
+begin
+	j:=1;
+	while (temasPorDj[i,j]<>'0') do
+		j:=j+1;
+	Cantidadtemas:=j-1;
+end;
+
+Procedure OrdenDuracion2(listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; nombre:string; nomDjs:tvNomDjs; duracion:tvDuracion);
+
+var
+	i:byte;
+	temporal:string;
+	l:byte;
+	j:byte;
+	g:byte;
+	MLTemas:byte;
+	posiciontema1:byte;
+	posiciontema2:byte;
+begin
+	i:=PosicionDj(nombre,nomDjs);
+	MLTemas:=Cantidadtemas(i,temasPorDj);
+	for j:=1 to MLTemas do
+	begin
+		for g:=j+1 to MLTemas do
+		begin	
+			posiciontema1:=PosicionTema(listatemas,temasPorDj,j,i);
+			posiciontema2:=PosicionTema(listatemas,temasPorDj,g,i);
+	 		if (duracion[posiciontema1]<duracion[posiciontema2]) then  
+			begin
+				temporal:=temasPorDj[i,j];
+				temasPorDj[i,j]:=temasPorDj[i,g];
+				temasPorDj[i,g]:=temporal;
+			end;
+			
+		end;	
+	 end;
+    
+	for l:=1 to MLTemas do
+		writeln(temasPorDj[i,l]);
+		
 end;
 
 
@@ -367,9 +431,7 @@ var
 	k:byte;
 	j:byte;
 begin
-	i:=1;
-	while nomDjs[i]<>nombre do
-		i:=i+1;
+	i:=PosicionDj(nombre,nomDjs);
 	j:=1;
 	k:=1;
 	while (temasPorDj[i,j]<>'0') do
@@ -406,11 +468,10 @@ end;
 
 
 
-Procedure Submenu2 (listatemas:tmListaTemas,duracion:tvDuracion);
+Procedure Submenu2 (listatemas:tmListaTemas; duracion:tvDuracion);
 
 var
 	opcionsubmenu2:byte;
-	i:byte;
 begin
 	writeln('Ingrese la opcion deseada');
 	repeat
@@ -461,7 +522,7 @@ begin
 end;
 
 
-Procedure Submenu3 (listatemas:tmListaTemas; temasPorDj:tmTemasPorDj;nomDjs:tvNomDjs; MLDjs:tiDjs);
+Procedure Submenu3 (listatemas:tmListaTemas; temasPorDj:tmTemasPorDj;nomDjs:tvNomDjs; MLDjs:tiDjs; duracion:tvDuracion);
 
 const
 	OPMAX=2;
@@ -479,7 +540,7 @@ begin
 			writeln('2- Temas en el orden de ingreso');
 			readln(opcionsubmenu3);
 			case opcionsubmenu3 of
-				1: OrdenDuracion2(listatemas,temasPorDj,nombre);
+				1: OrdenDuracion2(listatemas,temasPorDj,nombre,nomDjs,duracion);
 				2: OrdenDeIngreso2(temasPorDj,nombre,nomDjs);
 			else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');
 			end;
@@ -499,6 +560,7 @@ var
 	opcionmen2:byte;
 	
 begin
+	 Duracionminseg(duracion,listatemas);
      writeln('Ingrese la opción deseada');
      repeat
 		writeln('1- Listado de Dj');
@@ -509,14 +571,38 @@ begin
 		case opcionmen2 of
 			1: Submenu1(nomDjs,MLDjs);
 			2: Submenu2(listatemas,duracion);
-			3: Submenu3(listatemas,temasPorDj,nomDjs,MLDjs);
+			3: Submenu3(listatemas,temasPorDj,nomDjs,MLDjs,duracion);
 			4: writeln('Salio del Listado de Datos');
         else writeln('Ingreso una opcion invalida, vuelva a elegir una opcion');    
         end;     
      until (opcionmen2=4);   
 end;
 
+procedure DjsQueMasToca(duracion:tvDuracion; listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; MLDjs:tiDjs);
+  var i,j,k,minnum,segnum,codigo:byte;
+      Total:word;
+      Parcial:word;
+   begin
+     for i:=1 to MLDjs do
+     {nomDjs[i]}
+     Begin
+      j:=1;
+       repeat
+          for k:=1 to MAXTEM do
+            if temasPorDj[i,j]=listatemas[k,nombre] then
+              begin
+                 VAL(listatemas[k,minutos],minnum,codigo);
+                 VAL(listatemas[k,segundos],segnum,codigo);
+                 Parcial:=((minnum*60)+segnum);
+              end;
+          Total:=Total+Parcial;
+        j:=j+1;
 
+       until(temasPorDj[i,j]='0');
+       duracion[i]:=Total;
+
+     End;
+   end;
 
 var 
     listatemas:tmListaTemas;
@@ -525,8 +611,10 @@ var
     opcionmen1:byte;
     MLDjs:tiDjs;
     duracion:tvDuracion;
+	sumaduracion:tvSumaDuracion;
 BEGIN 
 	Menu1(listatemas,nomDjs,temasPorDj,opcionmen1,MLDjs);
 	writeln('Listado de Datos');
-	Menu2(listatemas,nomDjs,temasPorDj,MLDjs,duracion);	
+	Menu2(listatemas,nomDjs,temasPorDj,MLDjs,duracion);
+	DjMaxDuracion(listatemas,temasPorDj,MLDjs,sumaduracion);	
 END.
