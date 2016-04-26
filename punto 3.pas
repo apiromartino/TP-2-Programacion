@@ -1,9 +1,11 @@
 procedure DjsQueMasToca(var VecTotalsegPordj:tvTotalsegPorDj; listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; MLDjs:tiDjs);
+
+
   var i,j,k,minnum,segnum,Parcial,codigo:byte;
-      Total:integer;
+      Total,SegsTotal:integer;
+      st1:string[10];
    begin
      for i:=1 to MLDjs do
-     {nomDjs[i]}
      Begin
       j:=1;
        repeat
@@ -19,6 +21,8 @@ procedure DjsQueMasToca(var VecTotalsegPordj:tvTotalsegPorDj; listatemas:tmLista
 
        until(temasPorDj[i,j]='0');
        VecTotalsegPorDj[i]:=Total;
-
+       Total:=0;
      End;
+
+
    end;
