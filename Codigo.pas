@@ -19,6 +19,7 @@ type
 	tmTemasPorDj=array [tiDjs,tiTemasPorDj] of string[40]; 
 	tvDuracion=array[tiTemas] of word;
 	tvSumaDuracion=array[tiDjs] of word;
+	tvTemasRepetidos=array [tiTemas] of byte;
 
 Procedure ValidarMinutos(var min:string);
 
@@ -165,7 +166,7 @@ begin
 		end;
 end;
 
-Procedure IngreseListatemasPorDj(listatemas:tmListaTemas; nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj; MLDjs:tiDjs);
+Procedure IngreseListaTemasPorDj(listatemas:tmListaTemas; nomDjs:tvNomDjs; var temasPorDj:tmTemasPorDj; MLDjs:tiDjs);
 var  
 	i,j:byte;
 	tema:string;
@@ -603,6 +604,41 @@ procedure DjsQueMasToca(duracion:tvDuracion; listatemas:tmListaTemas; temasPorDj
 
      End;
    end;
+   
+Procedure Inicializarvector (var temasrepetidos:tvTemasRepetidos);
+
+var
+	i:byte;
+begin
+	for i:=1 to MAXTEM do
+		temasrepetidos[i]:=0;
+end;
+
+Procedure TemasMasTocados(temasPorDj:tmTemasPorDj; listaTemas:tmListaTemas; temasRepetidos:tvTemasRepetidos; MLDjs:tiDjs); 
+var i:word;
+	j:word;
+	k:word;
+	maximoRepetidos:byte;
+
+begin
+	Inicializarvector(temasRepetidos);
+	for k:=1 to MLDjs do
+		while temasPorDj[k,i]<>'0' do
+			begin
+				for j:=1 to MAXTEM do
+					if (temasPorDj[k, i]=listaTemas[j,nombre]) then
+						temasRepetidos[j]:= temasRepetidos[j] + 1;
+				i:=i+1;
+			end;		
+	maximoRepetidos:=0;
+	for i:=1 to MAXTEM do
+		if temasRepetidos[i]>maximoRepetidos then
+			maximoRepetidos:=temasRepetidos[i];
+	for i:=1 to MAXTEM do
+		if temasRepetidos[i]=maximoRepetidos then
+			writeln(listaTemas[i,nombre], 'es de los mas repetidos, esta repetido', maximoRepetidos, 'veces');
+end;		
+
 
 var 
     listatemas:tmListaTemas;
@@ -612,9 +648,11 @@ var
     MLDjs:tiDjs;
     duracion:tvDuracion;
 	sumaduracion:tvSumaDuracion;
+	temasRepetidos:tvTemasRepetidos;
 BEGIN 
 	Menu1(listatemas,nomDjs,temasPorDj,opcionmen1,MLDjs);
 	writeln('Listado de Datos');
 	Menu2(listatemas,nomDjs,temasPorDj,MLDjs,duracion);
-	DjMaxDuracion(listatemas,temasPorDj,MLDjs,sumaduracion);	
+	DjMaxDuracion(listatemas,temasPorDj,MLDjs,sumaduracion);
+	TemasMasTocados(temasPorDj,listaTemas,temasRepetidos,MLDjs); 	
 END.
