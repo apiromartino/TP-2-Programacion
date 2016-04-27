@@ -1,4 +1,4 @@
-{type tvTotalSegPorDjs=array[tiDjs] o integer;
+{type tvTotalSegPorDjs=array[tiDjs] of integer;
       tvPosicion=arrary[tiDjs] of byte;
       
  var VecTotalsegPordj:tvTotalsegPorDj;
