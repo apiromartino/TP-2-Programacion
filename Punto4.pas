@@ -8,12 +8,13 @@ begin
 end;
 
 Procedure TemasMasTocados(temasPorDj:tmTemasPorDj; listaTemas:tmListaTemas; temasRepetidos:tvTemasRepetidos; MLDjs:tiDjs); {AGREGAR TIPOS}
-var i:byte;
+var 	i:byte;
 	j:byte;
 	k:byte;
 	maximoRepetidos:byte;
 
 begin
+	i:=1;
 	Inicializarvector(temasRepetidos);
 	for k:=1 to MLDjs do
 		while temasPorDj[k,i]<>'0' do
