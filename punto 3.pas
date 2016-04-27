@@ -44,10 +44,10 @@ procedure DjsQueMasToca(var VecTotalsegPordj:tvTotalsegPorDj; listatemas:tmLista
          Begin
           if (VecPosicion[2]=0) then
             write(nomDjs[VecPosicion[1]],' tocara ')
-            {ConversordeSeg();}
+            {ConversordeSeg(maxdVector);}
             {CombersordeSeg es el procedimiento que hace el pasaje de los segundos a HH:MM.SS  }
           else
             Write(nomDjs[VecPosicion[i]],' tocara ')
-            {ConversordeSeg();}
+            {ConversordeSeg(maxdVector);}
          End
    end;
