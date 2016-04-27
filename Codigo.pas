@@ -657,6 +657,7 @@ var i:word;
 	maximoRepetidos:byte;
 
 begin
+	i:=1;
 	Inicializarvector(temasRepetidos);
 	for k:=1 to MLDjs do
 		while temasPorDj[k,i]<>'0' do
