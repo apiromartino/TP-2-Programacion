@@ -1,28 +1,29 @@
-procedure DjsQueMasToca(var VecTotalsegPordj:tvTotalsegPorDj; listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; MLDjs:tiDjs; var VecPosicion:tvPosicion; nomDjs:tvNomDjs; var maxdVector:integer);
+Procedure ConversordeSeg(maxdVector:integer);
+  var Hor,Min,Seg,cero:string[4];
+      HorAux,MinAux,SegAux:byte;
 
+  BEGIN
+   cero:='0';
+   HorAux:=(maxdVector div 3600);
+   Str(HorAux,Hor);
+     if HorAux<10 then
+      insert(cero,Hor,1);
+   MinAux:=(maxdVector mod 3600) div 60;
+   Str(Minaux,Min);
+     if MinAux<10 then
+      insert(cero,Min,1);
+   SegAux:=(maxdVector mod 3600) mod 60;
+   Str(SegAux,Seg);
+     if SegAux<10 then
+      insert(cero,Seg,1);
+    writeln(Hor,':',Min,':',Seg);
 
-  var i,j,k,minnum,segnum,codigo,posicion:byte;
-      Total,Parcial,SegsTotal:integer;
-      st1:string[10];
-   begin
-     for i:=1 to MLDjs do
-     Begin
-      j:=1;
-       repeat
-          for k:=1 to MAXTEM do
-            if temasPorDj[i,j]=listatemas[k,nombre] then
-              begin
-                 VAL(listatemas[k,minutos],minnum,codigo);
-                 VAL(listatemas[k,segundos],segnum,codigo);
-                 Parcial:=((minnum*60)+segnum);
-              end;
-          Total:=Total+Parcial;
-        j:=j+1;
+  END;
+Procedure  MaxdVector(MLDjs:tiDjs; VecTotalsegPordj:tvTotalsegPorDj; VecPosicion:tvPosicion; nomDjs:tvNomDjs);
+     Var i,j,k:byte;
+         maxdVector:integer;
 
-       until(temasPorDj[i,j]='0');
-       VecTotalsegPorDj[i]:=Total;
-       Total:=0;
-     End;
+     BEGIN
       for i:=1 to MLDjs do
         begin
           if (VecTotalsegPorDj[i]>maxdVector) then
@@ -45,16 +46,44 @@ procedure DjsQueMasToca(var VecTotalsegPordj:tvTotalsegPorDj; listatemas:tmLista
           if (VecPosicion[2]=0) then
            begin
             write(nomDjs[VecPosicion[1]],' tocara ');
-            readln
+            ConversordeSeg(maxdVector);
            end
-            {ConversordeSeg(maxdVector);}
-            {CombersordeSeg es el procedimiento que hace el pasaje de los segundos a HH:MM.SS  }
           else
            begin
             Write(nomDjs[VecPosicion[i]],' tocara ');
-            {ConversordeSeg(maxdVector);}
-            readln
+            ConversordeSeg(maxdVector);
            end;
           i:=i+1
-         End
-   end;
+         End;
+       readln
+     END;
+
+procedure VsegTtalporDj(var VecTotalsegPordj:tvTotalsegPorDj; listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; MLDjs:tiDjs; VecPosicion:tvPosicion; nomDjs:tvNomDjs);
+
+
+  var i,j,k,minnum,segnum,codigo:byte;
+      Total,Parcial:integer;
+
+  BEGIN
+   begin
+     for i:=1 to MLDjs do
+     Begin
+      j:=1;
+       repeat
+          for k:=1 to MAXTEM do
+            if temasPorDj[i,j]=listatemas[k,nombre] then
+              begin
+                 VAL(listatemas[k,minutos],minnum,codigo);
+                 VAL(listatemas[k,segundos],segnum,codigo);
+                 Parcial:=((minnum*60)+segnum);
+              end;
+          Total:=Total+Parcial;
+        j:=j+1;
+
+       until(temasPorDj[i,j]='0');
+       VecTotalsegPorDj[i]:=Total;
+       Total:=0
+     End;
+     MaxdVector(MLDjs,VecTotalsegPordj,VecPosicion,nomDjs);
+    end;
+   END;
