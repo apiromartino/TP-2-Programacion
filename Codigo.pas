@@ -580,66 +580,97 @@ begin
      until (opcionmen2=4);   
 end;
 
-procedure DjsQueMasToca(var VecTotalsegPordj:tvTotalsegPorDj; listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; MLDjs:tiDjs; var VecPosicion:tvPosicion; nomDjs:tvNomDjs; var maxdVector:integer);
+
+Procedure ConversordeSeg(maxdVector:integer);
+var
+	Hor,Min,Seg,cero:string[4];
+	HorAux,MinAux,SegAux:byte;
+
+begin
+   cero:='0';
+   HorAux:=(maxdVector div 3600);
+   Str(HorAux,Hor);
+   if HorAux<10 then
+      insert(cero,Hor,1);
+   MinAux:=(maxdVector mod 3600) div 60;
+   Str(Minaux,Min);
+   if MinAux<10 then
+      insert(cero,Min,1);
+   SegAux:=(maxdVector mod 3600) mod 60;
+   Str(SegAux,Seg);
+   if SegAux<10 then
+      insert(cero,Seg,1);
+    writeln(Hor,':',Min,':',Seg);
+
+end;
 
 
-  var i,j,k,minnum,segnum,codigo,posicion:byte;
-      Total,Parcial,SegsTotal:integer;
-      st1:string[10];
-   begin
-     for i:=1 to MLDjs do
-     Begin
-      j:=1;
-       repeat
-          for k:=1 to MAXTEM do
-            if temasPorDj[i,j]=listatemas[k,nombre] then
-              begin
-                 VAL(listatemas[k,minutos],minnum,codigo);
-                 VAL(listatemas[k,segundos],segnum,codigo);
-                 Parcial:=((minnum*60)+segnum);
-              end;
-          Total:=Total+Parcial;
-        j:=j+1;
+Procedure  MaxdVector(MLDjs:tiDjs; VecTotalsegPordj:tvTotalsegPorDj; VecPosicion:tvPosicion; nomDjs:tvNomDjs);
 
-       until(temasPorDj[i,j]='0');
-       VecTotalsegPorDj[i]:=Total;
-       Total:=0;
-     End;
-      for i:=1 to MLDjs do
-        begin
-          if (VecTotalsegPorDj[i]>maxdVector) then
-           begin
-             maxdVector:=VecTotalsegPorDj[i];
+var 
+		i,j,k:byte;
+        maxdVector:integer;
 
-            k:=1;
-            for j:=i to MLDjs do
-             if VecTotalsegPorDj[j]=maxdVector then
-               begin
-                 VecPosicion[k]:=j;
-                 VecPosicion[k+1]:=0;
-                 k:=k+1;
-               end
-           end
-        end;
-       i:=1;
-       while VecPosicion[i]<>0 do
-         Begin
-          if (VecPosicion[2]=0) then
-           begin
-            write(nomDjs[VecPosicion[1]],' tocara ');
-            readln
-           end
-            {ConversordeSeg(maxdVector);}
-            {CombersordeSeg es el procedimiento que hace el pasaje de los segundos a HH:MM.SS  }
-          else
-           begin
-            Write(nomDjs[VecPosicion[i]],' tocara ');
-            {ConversordeSeg(maxdVector);}
-            readln
-           end;
-          i:=i+1
-         End
-   end;
+begin
+		for i:=1 to MLDjs do
+			begin
+				if (VecTotalsegPorDj[i]>maxdVector) then
+					begin
+						maxdVector:=VecTotalsegPorDj[i];
+						k:=1;
+						for j:=i to MLDjs do
+							if VecTotalsegPorDj[j]=maxdVector then
+								begin
+									VecPosicion[k]:=j;
+									VecPosicion[k+1]:=0;
+									k:=k+1;
+								end
+					end
+			end;
+		i:=1;
+		while VecPosicion[i]<>0 do
+			begin
+				if (VecPosicion[2]=0) then
+					begin
+						write(nomDjs[VecPosicion[1]],' tocara ');
+							ConversordeSeg(maxdVector);
+					end
+				else
+					begin
+						Write(nomDjs[VecPosicion[i]],' tocara ');
+						ConversordeSeg(maxdVector);
+					end;
+				i:=i+1
+			end;
+end;
+
+Procedure DjsQueMasToca(VecTotalsegPordj:tvTotalsegPorDj; listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; MLDjs:tiDjs; VecPosicion:tvPosicion; nomDjs:tvNomDjs);
+
+var 
+		i,j,k,minnum,segnum,codigo:byte;
+		Total,Parcial:integer;
+
+begin
+		for i:=1 to MLDjs do
+			begin
+				j:=1;
+				repeat
+					for k:=1 to MAXTEM do
+						if temasPorDj[i,j]=listatemas[k,nombre] then
+							begin
+								VAL(listatemas[k,minutos],minnum,codigo);
+								VAL(listatemas[k,segundos],segnum,codigo);
+								Parcial:=((minnum*60)+segnum);
+							end;
+					Total:=Total+Parcial;
+					j:=j+1;
+				until(temasPorDj[i,j]='0');
+				VecTotalsegPorDj[i]:=Total;
+				Total:=0
+			end;
+		MaxdVector(MLDjs,VecTotalsegPordj,VecPosicion,nomDjs);
+end;
+   
 
 Procedure Inicializarvector (var temasrepetidos:tvTemasRepetidos);
 
@@ -691,6 +722,7 @@ BEGIN
 	Menu1(listatemas,nomDjs,temasPorDj,opcionmen1,MLDjs);
 	writeln('Listado de Datos');
 	Menu2(listatemas,nomDjs,temasPorDj,MLDjs,duracion);
+	writeln('Djs que mas tiempo tocaran.');
 	DjsQueMasToca(vecTotalsegPordj,listatemas,temasPorDj,MLDjs,vecPosicion,nomDjs);
 	TemasMasTocados(temasPorDj,listaTemas,temasRepetidos,MLDjs); 	
 END.
