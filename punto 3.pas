@@ -1,3 +1,11 @@
+{type tvTotalSegPorDjs=array[tiDjs] o integer;
+      tvPosicion=arrary[tiDjs] of byte;
+      
+ var VecTotalsegPordj:tvTotalsegPorDj;
+     VecPosicion:tvPosicion;                       aca agregue los tipos y las variables que use para el punto 3,
+                                                   obviamente use mas pero las demas ya fueron declaradas}}
+      
+       
 Procedure ConversordeSeg(maxdVector:integer);
   var Hor,Min,Seg,cero:string[4];
       HorAux,MinAux,SegAux:byte;
