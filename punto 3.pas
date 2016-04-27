@@ -1,8 +1,8 @@
-procedure DjsQueMasToca(var VecTotalsegPordj:tvTotalsegPorDj; listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; MLDjs:tiDjs; var VecPosicion:tvPosicion; nomDjs:tvNomDjs);
+procedure DjsQueMasToca(var VecTotalsegPordj:tvTotalsegPorDj; listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; MLDjs:tiDjs; var VecPosicion:tvPosicion; nomDjs:tvNomDjs; var maxdVector:integer);
 
 
-  var i,j,k,minnum,segnum,codigo,posicion,Hor,Min,Seg:byte;
-      Total,Parcial,SegsTotal,maxdVector:integer;
+  var i,j,k,minnum,segnum,codigo,posicion:byte;
+      Total,Parcial,SegsTotal:integer;
       st1:string[10];
    begin
      for i:=1 to MLDjs do
@@ -43,11 +43,18 @@ procedure DjsQueMasToca(var VecTotalsegPordj:tvTotalsegPorDj; listatemas:tmLista
        while VecPosicion[i]<>0 do
          Begin
           if (VecPosicion[2]=0) then
-            write(nomDjs[VecPosicion[1]],' tocara ')
+           begin
+            write(nomDjs[VecPosicion[1]],' tocara ');
+            readln
+           end
             {ConversordeSeg(maxdVector);}
             {CombersordeSeg es el procedimiento que hace el pasaje de los segundos a HH:MM.SS  }
           else
-            Write(nomDjs[VecPosicion[i]],' tocara ')
+           begin
+            Write(nomDjs[VecPosicion[i]],' tocara ');
             {ConversordeSeg(maxdVector);}
+            readln
+           end;
+          i:=i+1
          End
    end;
