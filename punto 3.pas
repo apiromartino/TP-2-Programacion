@@ -3,7 +3,8 @@
       
  var VecTotalsegPordj:tvTotalsegPorDj;
      VecPosicion:tvPosicion;                       aca agregue los tipos y las variables que use para el punto 3,
-                                                   obviamente use mas pero las demas ya fueron declaradas}}
+                                                   obviamente use mas pero las demas ya fueron declaradas.
+                                                   todo el Pto 3 esta probado y andando}
       
        
 Procedure ConversordeSeg(maxdVector:integer);
