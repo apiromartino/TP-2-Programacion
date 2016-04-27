@@ -17,9 +17,10 @@ type
 	tmListaTemas=array [tiTemas,tiNomMinSeg] of string[20];
 	tvNomDjs=array [tiDjs] of string[40];
 	tmTemasPorDj=array [tiDjs,tiTemasPorDj] of string[40]; 
-	tvDuracion=array[tiTemas] of word;
-	tvSumaDuracion=array[tiDjs] of word;
+	tvDuracion=array[tiTemas] of integer;
 	tvTemasRepetidos=array [tiTemas] of byte;
+	tvTotalSegPorDj=array[tiDjs] of integer;
+	tvPosicion=array[tiDjs] of byte;
 
 Procedure ValidarMinutos(var min:string);
 
@@ -579,13 +580,14 @@ begin
      until (opcionmen2=4);   
 end;
 
-procedure DjsQueMasToca(duracion:tvDuracion; listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; MLDjs:tiDjs);
-  var i,j,k,minnum,segnum,codigo:byte;
-      Total:word;
-      Parcial:word;
+procedure DjsQueMasToca(var VecTotalsegPordj:tvTotalsegPorDj; listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; MLDjs:tiDjs; var VecPosicion:tvPosicion; nomDjs:tvNomDjs; var maxdVector:integer);
+
+
+  var i,j,k,minnum,segnum,codigo,posicion:byte;
+      Total,Parcial,SegsTotal:integer;
+      st1:string[10];
    begin
      for i:=1 to MLDjs do
-     {nomDjs[i]}
      Begin
       j:=1;
        repeat
@@ -600,11 +602,45 @@ procedure DjsQueMasToca(duracion:tvDuracion; listatemas:tmListaTemas; temasPorDj
         j:=j+1;
 
        until(temasPorDj[i,j]='0');
-       duracion[i]:=Total;
-
+       VecTotalsegPorDj[i]:=Total;
+       Total:=0;
      End;
+      for i:=1 to MLDjs do
+        begin
+          if (VecTotalsegPorDj[i]>maxdVector) then
+           begin
+             maxdVector:=VecTotalsegPorDj[i];
+
+            k:=1;
+            for j:=i to MLDjs do
+             if VecTotalsegPorDj[j]=maxdVector then
+               begin
+                 VecPosicion[k]:=j;
+                 VecPosicion[k+1]:=0;
+                 k:=k+1;
+               end
+           end
+        end;
+       i:=1;
+       while VecPosicion[i]<>0 do
+         Begin
+          if (VecPosicion[2]=0) then
+           begin
+            write(nomDjs[VecPosicion[1]],' tocara ');
+            readln
+           end
+            {ConversordeSeg(maxdVector);}
+            {CombersordeSeg es el procedimiento que hace el pasaje de los segundos a HH:MM.SS  }
+          else
+           begin
+            Write(nomDjs[VecPosicion[i]],' tocara ');
+            {ConversordeSeg(maxdVector);}
+            readln
+           end;
+          i:=i+1
+         End
    end;
-   
+
 Procedure Inicializarvector (var temasrepetidos:tvTemasRepetidos);
 
 var
@@ -647,12 +683,13 @@ var
     opcionmen1:byte;
     MLDjs:tiDjs;
     duracion:tvDuracion;
-	sumaduracion:tvSumaDuracion;
 	temasRepetidos:tvTemasRepetidos;
+	vecTotalSegPorDj:tvTotalSegPorDj;
+	vecPosicion:tvPosicion;
 BEGIN 
 	Menu1(listatemas,nomDjs,temasPorDj,opcionmen1,MLDjs);
 	writeln('Listado de Datos');
 	Menu2(listatemas,nomDjs,temasPorDj,MLDjs,duracion);
-	DjMaxDuracion(listatemas,temasPorDj,MLDjs,sumaduracion);
+	DjsQueMasToca(vecTotalsegPordj,listatemas,temasPorDj,MLDjs,vecPosicion,nomDjs);
 	TemasMasTocados(temasPorDj,listaTemas,temasRepetidos,MLDjs); 	
 END.
