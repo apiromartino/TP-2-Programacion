@@ -679,13 +679,63 @@ begin
 		temasRepetidos[i]:=0;
 end;
 
-Procedure TemasMasTocados(temasPorDj:tmTemasPorDj; listaTemas:tmListaTemas; temasRepetidos:tvTemasRepetidos; MLDjs:tiDjs); 
+Function MaxRepetidos(temasRepetidos:tvTemasRepetidos):byte;
+
+var
+	i:byte;
+	aux:byte;
+begin
+	aux:=0;
+	for i:=1 to MAXTEM do
+		if temasRepetidos[i]>aux then
+			aux:=temasRepetidos[i];
+	MaxRepetidos:=aux;		
+end;	
+
+
+Function CantidadMaximos(temasRepetidos:tvTemasRepetidos; maximoRepetidos:byte):byte;
+
+var
+	i:byte;
+	aux:byte;
+begin
+	aux:=0;
+	for i:=1 to MAXTEM do
+		if temasRepetidos[i]=maximoRepetidos then
+			aux:=aux+1;
+	CantidadMaximos:=aux;		
+end;
+
+
+Procedure Mostrar(contador:byte; maximoRepetidos:byte; temasRepetidos:tvTemasRepetidos; listatemas:tmListaTemas);
+
+var
+	i:byte;
+begin
+	if (contador=1) then
+		for i:=1 to MAXTEM do
+			if temasRepetidos[i]=maximoRepetidos then
+				writeln(listatemas[i,nombre], ' es el tema que mas veces sera tocado, con un total de ', maximoRepetidos, ' repeticiones');
+	if (contador>1)	then
+		for i:=1 to MAXTEM do
+			if temasRepetidos[i]=maximoRepetidos then
+				begin
+					writeln(listatemas[i,nombre],' es uno de los temas que sera mas tocado, con un total de ',maximoRepetidos, ' repeticiones');
+					writeln('Este tema dura ',listatemas[i,minutos],':',listatemas[i,segundos]);
+					writeln(' ');
+				end;	
+end;
+
+
+
+
+Procedure TemasMasTocados(temasPorDj:tmTemasPorDj; listatemas:tmListaTemas; temasRepetidos:tvTemasRepetidos; MLDjs:tiDjs); 
 var 
 	i:byte;
 	j:byte;
 	k:byte;
 	maximoRepetidos:byte;
-
+	contador:byte;
 begin
 	Inicializarvector(temasRepetidos);
 	for k:=1 to MLDjs do
@@ -699,16 +749,10 @@ begin
 					i:=i+1;
 				end;
 		end;		
-	maximoRepetidos:=0;
-	for i:=1 to MAXTEM do
-		if temasRepetidos[i]>maximoRepetidos then
-			maximoRepetidos:=temasRepetidos[i];
-	for i:=1 to MAXTEM do
-		if temasRepetidos[i]=maximoRepetidos then
-			writeln(listatemas[i,nombre], ' es de los mas repetidos, esta repetido ', maximoRepetidos, ' veces');
-end;		
-
-
+	maximoRepetidos:=MaxRepetidos(temasRepetidos);
+	contador:=CantidadMaximos(temasRepetidos,maximoRepetidos);
+	Mostrar(contador,maximoRepetidos,temasRepetidos,listatemas);		
+end;
 
 var 
     listatemas:tmListaTemas;
@@ -725,8 +769,10 @@ BEGIN
 	writeln('Listado de Datos');
 	Menu2(listatemas,nomDjs,temasPorDj,MLDjs,duracion);
 	writeln(' ');
-	writeln('Djs que mas tiempo tocaran.');
+	writeln('Djs que mas tiempo tocaran:');
 	DjsQueMasToca(vecTotalsegPordj,listatemas,temasPorDj,MLDjs,vecPosicion,nomDjs);
 	writeln(' ');
-	TemasMasTocados(temasPorDj,listatemas,temasRepetidos,MLDjs); 	
+	writeln('Temas mas tocados:');
+	TemasMasTocados(temasPorDj,listatemas,temasRepetidos,MLDjs); 
+	readln();	
 END.
