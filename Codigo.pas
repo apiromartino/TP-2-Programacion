@@ -16,7 +16,7 @@ type
 	tiNomMinSeg=(nombre,minutos,segundos);
 	tmListaTemas=array [tiTemas,tiNomMinSeg] of string[20];
 	tvNomDjs=array [tiDjs] of string[40];
-	tmTemasPorDj=array [tiDjs,tiTemasPorDj] of string[40]; 
+	tmTemasPorDj=array [tiDjs,tiTemasPorDj] of string[20]; 
 	tvDuracion=array[tiTemas] of integer;
 	tvTemasRepetidos=array [tiTemas] of byte;
 	tvTotalSegPorDj=array[tiDjs] of integer;
@@ -393,7 +393,7 @@ Procedure OrdenDuracion2(listatemas:tmListaTemas; temasPorDj:tmTemasPorDj; nombr
 
 var
 	i:byte;
-	temporal:string;
+	temporal:string [20];
 	l:byte;
 	j:byte;
 	g:byte;
@@ -404,22 +404,20 @@ begin
 	i:=PosicionDj(nombre,nomDjs);
 	MLTemas:=Cantidadtemas(i,temasPorDj);
 	for j:=1 to MLTemas do
-	begin
-		for g:=j+1 to MLTemas do
-		begin	
-			posiciontema1:=PosicionTema(listatemas,temasPorDj,j,i);
-			posiciontema2:=PosicionTema(listatemas,temasPorDj,g,i);
-	 		if (duracion[posiciontema1]<duracion[posiciontema2]) then  
-			begin
-				temporal:=temasPorDj[i,j];
-				temasPorDj[i,j]:=temasPorDj[i,g];
-				temasPorDj[i,g]:=temporal;
-			end;
-			
-		end;	
-	 end;
-    
-	for l:=1 to MLTemas do
+		begin
+			for g:=j+1 to MLTemas do
+				begin	
+					posiciontema1:=PosicionTema(listatemas,temasPorDj,j,i);
+					posiciontema2:=PosicionTema(listatemas,temasPorDj,g,i);
+					if (duracion[posiciontema1]<duracion[posiciontema2]) then  
+					begin
+						temporal:=temasPorDj[i,j];
+						temasPorDj[i,j]:=temasPorDj[i,g];
+						temasPorDj[i,g]:=temporal;
+					end;
+				end;	
+		end;
+    for l:=1 to MLTemas do
 		writeln(temasPorDj[i,l]);
 		
 end;
