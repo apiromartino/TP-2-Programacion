@@ -670,40 +670,44 @@ begin
 end;
    
 
-Procedure Inicializarvector (var temasrepetidos:tvTemasRepetidos);
+Procedure Inicializarvector (var temasRepetidos:tvTemasRepetidos);
 
 var
 	i:byte;
 begin
 	for i:=1 to MAXTEM do
-		temasrepetidos[i]:=0;
+		temasRepetidos[i]:=0;
 end;
 
 Procedure TemasMasTocados(temasPorDj:tmTemasPorDj; listaTemas:tmListaTemas; temasRepetidos:tvTemasRepetidos; MLDjs:tiDjs); 
-var i:word;
-	j:word;
-	k:word;
+var 
+	i:byte;
+	j:byte;
+	k:byte;
 	maximoRepetidos:byte;
 
 begin
-	i:=1;
 	Inicializarvector(temasRepetidos);
 	for k:=1 to MLDjs do
-		while temasPorDj[k,i]<>'0' do
-			begin
-				for j:=1 to MAXTEM do
-					if (temasPorDj[k, i]=listaTemas[j,nombre]) then
-						temasRepetidos[j]:= temasRepetidos[j] + 1;
-				i:=i+1;
-			end;		
+		begin
+			i:=1;
+			while temasPorDj[k,i]<>'0' do
+				begin
+					for j:=1 to MAXTEM do
+						if (temasPorDj[k,i]=listaTemas[j,nombre]) then
+							temasRepetidos[j]:= temasRepetidos[j] + 1;
+					i:=i+1;
+				end;
+		end;		
 	maximoRepetidos:=0;
 	for i:=1 to MAXTEM do
 		if temasRepetidos[i]>maximoRepetidos then
 			maximoRepetidos:=temasRepetidos[i];
 	for i:=1 to MAXTEM do
 		if temasRepetidos[i]=maximoRepetidos then
-			writeln(listaTemas[i,nombre], 'es de los mas repetidos, esta repetido', maximoRepetidos, 'veces');
+			writeln(listatemas[i,nombre], ' es de los mas repetidos, esta repetido ', maximoRepetidos, ' veces');
 end;		
+
 
 
 var 
@@ -724,5 +728,5 @@ BEGIN
 	writeln('Djs que mas tiempo tocaran.');
 	DjsQueMasToca(vecTotalsegPordj,listatemas,temasPorDj,MLDjs,vecPosicion,nomDjs);
 	writeln(' ');
-	TemasMasTocados(temasPorDj,listaTemas,temasRepetidos,MLDjs); 	
+	TemasMasTocados(temasPorDj,listatemas,temasRepetidos,MLDjs); 	
 END.
