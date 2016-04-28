@@ -371,7 +371,7 @@ var
 begin
 	k:=1;
 	while (listatemas[k,nombre]<>temasPorDj[i,j]) do
-	k:=j+1;
+		k:=k+1;
 	PosicionTema:=k;
 end; 
 	
@@ -409,7 +409,7 @@ begin
 				begin	
 					posiciontema1:=PosicionTema(listatemas,temasPorDj,j,i);
 					posiciontema2:=PosicionTema(listatemas,temasPorDj,g,i);
-					if (duracion[posiciontema1]<duracion[posiciontema2]) then  
+					if (duracion[posiciontema1]>duracion[posiciontema2]) then  
 					begin
 						temporal:=temasPorDj[i,j];
 						temasPorDj[i,j]:=temasPorDj[i,g];
@@ -536,7 +536,7 @@ begin
 		ValidarNombre(nombre,nomDjs,MLDjs);
 		writeln('Ingrese la opcion deseada');
 		repeat
-			writeln('1- Temas ordenados por duracion');
+			writeln('1- Temas ordenados por duracion en forma ascendente');
 			writeln('2- Temas en el orden de ingreso');
 			readln(opcionsubmenu3);
 			case opcionsubmenu3 of
@@ -720,7 +720,9 @@ BEGIN
 	Menu1(listatemas,nomDjs,temasPorDj,opcionmen1,MLDjs);
 	writeln('Listado de Datos');
 	Menu2(listatemas,nomDjs,temasPorDj,MLDjs,duracion);
+	writeln(' ');
 	writeln('Djs que mas tiempo tocaran.');
 	DjsQueMasToca(vecTotalsegPordj,listatemas,temasPorDj,MLDjs,vecPosicion,nomDjs);
+	writeln(' ');
 	TemasMasTocados(temasPorDj,listaTemas,temasRepetidos,MLDjs); 	
 END.
