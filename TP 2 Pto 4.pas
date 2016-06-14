@@ -1,4 +1,4 @@
-program Pto3;
+program Pto4;
 
 uses crt;
 
