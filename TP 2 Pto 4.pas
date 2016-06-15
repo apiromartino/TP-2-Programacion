@@ -12,7 +12,7 @@ type
 		  end;
 	tArchSuc= file of tRegSuc;
  		  
-Procedure LeerArch (var arch:tArchSuc; var reg:tRegSuc; var fin:boolean);
+Procedure LeerArchSuc (var arch:tArchSuc; var reg:tRegSuc; var fin:boolean);
 
 begin
 	fin:=EOF(arch);
@@ -27,7 +27,7 @@ var
 begin
 	reset(archAct);
 	rewrite(archMund);
-	while (not eof(arch)) do
+	while (not eof(archAct)) do
 		begin
 			read(archAct,regAux);
 			write(archMund,regAux);
@@ -48,28 +48,28 @@ BEGIN
 	reset(archArg);
 	reset(archMund);
 	rewrite(archAct);
-	LeerArch(archArg,regArg,finArg);
-	LeerArch(archMund,regMund,finMund);
+	LeerArchSuc(archArg,regArg,finArg);
+	LeerArchSuc(archMund,regMund,finMund);
 	while ((not finArg) and (not finMund)) do
 		if (regMund.numSuc<regArg.numSuc) then
 			begin
 				write(archAct,regMund);
-				LeerArch(archMund,regMund,finMund);
+				LeerArchSuc(archMund,regMund,finMund);
 			end;
 		else 
 			begin
 				write(archAct,regArg);
-				LeerArch(archArg,regArg,finArg);
+				LeerArchSuc(archArg,regArg,finArg);
 			end;
 	while (not finMund) do
 		begin
 			write(archAct,regMund);
-			LeerArch(archMund,regMund,finMund);
+			LeerArchSuc(archMund,regMund,finMund);
 		end;	
 	while (no finArg) do
 		begin
 			write(archAct,regArg);
-			LeerArch(archArg,regArg,finArg);
+			LeerArchSuc(archArg,regArg,finArg);
 		end;
 	close(archAct);		
 	close(archArg);
