@@ -3,16 +3,16 @@ program Pto4;
 uses crt;
 
 type
-	tReg= record
+	tRegSuc= record
 			numSuc:word;
 			nomb:string[30];
 			pais:string[50];
 			direcc:string[50];
 			tel:string[20];
 		  end;
-	tArch= file of tReg;
+	tArchSuc= file of tReg;
  		  
-Procedure LeerArch (var arch:tArch; var reg:tReg; var fin:boolean);
+Procedure LeerArch (var arch:tArchSuc; var reg:tRegSuc; var fin:boolean);
 
 begin
 	fin:=EOF(arch);
@@ -20,10 +20,10 @@ begin
 		read(arch,reg);
 end;
 
-Procedure ActualizarArchSucMundo(var archMund:tArch; var archAct:tArch);
+Procedure ActualizarArchSucMundo(var archMund:tArchSuc; var archAct:tArchSuc);
 
 var
-	regAux:tReg;
+	regAux:tRegSuc;
 begin
 	reset(archAct);
 	rewrite(archMund);
@@ -37,8 +37,8 @@ begin
 end;
 
 var 
-	archArg,archMund,archAct:tArch;
-	regArg,regMund:tReg;
+	archArg,archMund,archAct:tArchSuc;
+	regArg,regMund:tRegSuc;
 	finArg,finMund:boolean;
 
 BEGIN
