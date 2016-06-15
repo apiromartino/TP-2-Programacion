@@ -10,7 +10,7 @@ type
 			direcc:string[50];
 			tel:string[20];
 		  end;
-	tArchSuc= file of tReg;
+	tArchSuc= file of tRegSuc;
  		  
 Procedure LeerArch (var arch:tArchSuc; var reg:tRegSuc; var fin:boolean);
 
