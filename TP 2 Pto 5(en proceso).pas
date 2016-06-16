@@ -39,7 +39,7 @@ type
 
 
 	
-Procedure CargaVentHist (var archVentHIst:tArchVentHist);	
+Procedure CargarVentHist (var archVentHIst:tArchVentHist);	
 
 var
 	regVentHist:tRegVentHist;
@@ -52,7 +52,7 @@ begin
 		begin
 			writeln('Ingrese el ano del importe');
 			readln(regVentHist.ano);
-			writeln('Ingrese el nùmero de mes del importe');
+			writeln('Ingrese el numero de mes del importe');
 			readln(regVentHist.mes);
 			writeln('Ingrese el importe correspondiente');
 			readln(regVentHist.importe);
@@ -92,20 +92,20 @@ var
 
 begin
 	rewrite(arch);
-	wrtieln('Ingrese el número de sucursal que desee ingresar, si no quiere seguir ingresando coloque el numero 0');
+	writeln('Ingrese el numero de sucursal que desee ingresar, si no quiere seguir ingresando coloque el numero 0');
 	readln(regSuc.numSuc);
 	while (regSuc.numSuc<>0) do
 		begin
 			writeln('Ingrese el nombre de la sucursal');
 			readln(regSuc.nomb);
-			writeln('Ingrese el país en donde se encuentra la sucursal');
+			writeln('Ingrese el pais en donde se encuentra la sucursal');
 			readln(regSuc.pais);
 			writeln('Ingrese la direccion');
 			readln(regSuc.direcc);
 			writeln('Ingrese el telefono');
 			readln(regSuc.tel);
 			write(arch,regSuc);
-			wrtieln('Ingrese el número de sucursal que desee ingresar, si no quiere seguir ingresando coloque el numero 0');
+			writeln('Ingrese el numero de sucursal que desee ingresar, si no quiere seguir ingresando coloque el numero 0');
 			readln(regSuc.numSuc);
 		end;
 	close(arch);		
@@ -115,7 +115,7 @@ end;
 Procedure MostrarSucursales(var arch:tArchSuc; lugar:string);
 
 var
-	regSuc:tRegSuc
+	regSuc:tRegSuc;
 begin
 	reset(arch);
 	writeln(' ');
@@ -188,7 +188,7 @@ var
 	regVentas:tRegVentas;
 begin
 	rewrite(arch);
-	wrtieln('Ingrese el numero de sucursal en el que se realizo la venta, si no desea agregar mas, coloque el numero 0');
+	writeln('Ingrese el numero de sucursal en el que se realizo la venta, si no desea agregar mas, coloque el numero 0');
 	readln(regVentas.numSuc);
 	while (regVentas.numSuc<>0) do
 		begin
@@ -196,14 +196,14 @@ begin
 			readln(regVentas.fecha);
 			writeln('Ingrese el numero de cliente');
 			readln(regVentas.numCli);
-			writeln('Ingrese el codigo del articulo';
+			writeln('Ingrese el codigo del articulo');
 			readln(regVentas.artic);
 			writeln('Ingrese la cantidad vendida');
 			readln(regVentas.cant);
 			writeln('Ingrese el importe realizado');
-			readln(regVentas.importe):
+			readln(regVentas.importe);
 			write(arch,regVentas);
-			wrtieln('Ingrese el numero de sucursal en el que se realizo la venta, si no desea agregar mas, coloque el numero 0');
+			writeln('Ingrese el numero de sucursal en el que se realizo la venta, si no desea agregar mas, coloque el numero 0');
 			readln(regVentas.numSuc);
 		end;
 	close(arch);		
@@ -260,7 +260,7 @@ var
 	salir:boolean;
 	archVentHist:tArchVentHist;
 	archSucMund,archSucArg:tArchSuc;
-	archCli:tArhcCli;
+	archCli:tArchCli;
 	archVentas:tArchVentas;
 	
 BEGIN
@@ -284,7 +284,7 @@ BEGIN
 			readln(opcion);
 			case opcion of
 				1: begin
-						CargaVentHist(archVentHist);
+						CargarVentHist(archVentHist);
 						MostrarVentHist(archVentHist);
 			       end;	
 				
@@ -299,7 +299,7 @@ BEGIN
 				   end;
 			
 				4: begin
-						CargaClientes(archCli);
+						CargarClientes(archCli);
 						MostrarClientes(archCli);
 				   end;	
 			
@@ -315,4 +315,3 @@ BEGIN
 	until salir ;	
 		
 END.
-
