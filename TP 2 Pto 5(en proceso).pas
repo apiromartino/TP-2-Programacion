@@ -46,7 +46,7 @@ var
 
 begin
 	rewrite(archVentHist);
-	writeln('Ingrese el numero de sucursal, si no quiere ingresar mas, ingrese el numero 0');
+	writeln('Ingrese el numero de sucursal, si no desea ingresar mas, ingrese el numero 0');
 	readln(regVentHist.numSuc);
 	while (regVentHist.numSuc<>0) do
 		begin
@@ -57,7 +57,7 @@ begin
 			writeln('Ingrese el importe correspondiente');
 			readln(regVentHist.importe);
 			write(archVentHist,regVentHist);
-			writeln('Ingrese el numero de sucursal, si no quiere ingresar mas, ingrese el numero 0');
+			writeln('Ingrese el numero de sucursal, si no desea ingresar mas, ingrese el numero 0');
 	        readln(regVentHist.numSuc);
 	   end;
 	close(archVentHist);  
@@ -140,7 +140,7 @@ var
 	regCli:tRegCli;
 begin
 	rewrite(arch);
-	writeln('Ingrese el numero de cliente, si no desea ingresarmas, coloque el numero 0');
+	writeln('Ingrese el numero de cliente, si no desea ingresar mas, coloque el numero 0');
 	readln(regCli.numCli);
 	while (regCli.numCli<>0) do
 		begin
@@ -153,7 +153,7 @@ begin
 			writeln('Ingrese la Direccion');
 			readln(regCli.direcc);
 			write(arch,regCli);
-			writeln('Ingrese el numero de cliente, si no desea ingresarmas, coloque el numero 0');
+			writeln('Ingrese el numero de cliente, si no desea ingresar mas, coloque el numero 0');
 			readln(regCli.numCli);
 		end;
 	close(arch);	
@@ -187,7 +187,26 @@ Procedure CargarVentas(var arch:tArchVentas);
 var
 	regVentas:tRegVentas;
 begin
-
+	rewrite(arch);
+	wrtieln('Ingrese el numero de sucursal en el que se realizo la venta, si no desea agregar mas, coloque el numero 0');
+	readln(regVentas.numSuc);
+	while (regVentas.numSuc<>0) do
+		begin
+			writeln('Ingrese la fecha con el formato AAAAMMDD');
+			readln(regVentas.fecha);
+			writeln('Ingrese el numero de cliente');
+			readln(regVentas.numCli);
+			writeln('Ingrese el codigo del articulo';
+			readln(regVentas.artic);
+			writeln('Ingrese la cantidad vendida');
+			readln(regVentas.cant);
+			writeln('Ingrese el importe realizado');
+			readln(regVentas.importe):
+			write(arch,regVentas);
+			wrtieln('Ingrese el numero de sucursal en el que se realizo la venta, si no desea agregar mas, coloque el numero 0');
+			readln(regVentas.numSuc);
+		end;
+	close(arch);		
 end;
 
 
@@ -196,7 +215,21 @@ Procedure MostrarVentas(var arch:tArchVentas);
 var
 	regVentas:tRegVentas;
 begin
-
+	reset(arch);
+	writeln(' ');
+	writeln('Contenido de Archivo de Ventas de las sucursales Argentinas del 2015');
+	while (not EOF(arch)) do
+		begin
+			read(arch,regVentas);
+			writeln('Sucursal numero: ',regVentas.numSuc);
+			writeln('Fecha: ',regVentas.fecha);
+			writeln('Numero de Cliente: ',regVentas.numCli);
+			writeln('Codigo Articulo: ',regVentas.artic);
+			writeln('Cantidad: ',regVentas.cant);
+			writeln('Importe: ',regVentas.importe);
+			writeln(' ');
+		end;	
+	close(arch);
 end;
 
 
