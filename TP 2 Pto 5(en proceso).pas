@@ -264,11 +264,11 @@ var
 	archVentas:tArchVentas;
 	
 BEGIN
-	assign(archVentHist,'C:/ArchVentHist.dat');
-	assign();
-	assign();
-	assign();
-	assign();
+	assign(archVentHist,'C:/ArchVentHistorico.dat');
+	assign(archSucMund,'C:/ArchSucMund.dat');
+	assign(archSucArg,'C:/ArchSucArg.dat');
+	assign(archCli,'C:/ArchClientes');
+	assign(archVentas,'C:/ArchVentas');
 	opmax:=5;
 	opmin:=1;
 	writeln('Carga e impresion de Archivos');
@@ -315,3 +315,4 @@ BEGIN
 	until salir ;	
 		
 END.
+
