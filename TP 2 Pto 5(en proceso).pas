@@ -10,7 +10,32 @@ type
 					importe:real;
 				  end;
 	tArchVentHist=file of tRegVentHist;
-
+	tRegSuc= record
+			numSuc:word;
+			nomb:string[30];
+			pais:string[50];
+			direcc:string[50];
+			tel:string[20];
+		  end;
+	tArchSuc= file of tRegSuc;
+	tRegCli= record
+				numCli:longint;
+				nomb:string[30];
+				prov:string[50];
+				loc:string[50];
+				direcc:string[50];
+			end;
+	tArchCli= file of tRegCli;
+	tRegVentas= record
+					fecha:string[8];
+					numCli:word;
+					numSuc:word;
+					artic:word;
+					cant:word;
+					importe:real;
+				end;
+	tArchVentas= file of tRegVentas;				
+					
 
 
 	
@@ -58,6 +83,79 @@ begin
 end;	
 
 
+Procedure CargarSucursales(var arch:tArchSuc);
+
+var
+	regSuc:tRegSuc;
+
+begin
+	rewrite(arch);
+	wrtieln('Ingrese el número de sucursal que desee ingresar, si no quiere seguir ingresando coloque el numero 0');
+	readln(regSuc.numSuc);
+	while (regSuc.numSuc<>0) do
+		begin
+			writeln('Ingrese el nombre de la sucursal');
+			readln(regSuc.nomb);
+			writeln('Ingrese el país en donde se encuentra la sucursal');
+			readln(regSuc.pais);
+			writeln('Ingrese la direccion');
+			readln(regSuc.direcc);
+			writeln('Ingrese el telefono');
+			readln(regSuc.tel);
+			write(arch,regSuc);
+			wrtieln('Ingrese el número de sucursal que desee ingresar, si no quiere seguir ingresando coloque el numero 0');
+			readln(regSuc.numSuc);
+		end;
+	close(arch);		
+end;
+
+
+Procedure MostrarSucursales(car arch:tArchSuc);
+
+var
+
+begin
+
+end;
+
+
+Procedure CargarClientes (var arch:tArchCli);
+
+var
+
+begin
+
+end;
+
+Procedure MostrarClientes (var arch:tArchCli);
+
+var
+
+begin
+
+end;
+
+
+
+Procedure CargarVentas(var arch:tArchVentas);
+
+var
+
+begin
+
+end;
+
+
+Procedure MostrarVentas(var arch:tArchVentas);
+
+var
+
+begin
+
+end;
+
+
+
 Procedure SeguirEnCarga(var salir:boolean);
 
 var
@@ -83,6 +181,9 @@ var
 	opmin:byte;
 	salir:boolean;
 	archVentHist:tArchVentHist;
+	archSucMund,archSucArg:tArchSuc;
+	archCli:tArhcCli;
+	archVentas:tArchVentas;
 	
 BEGIN
 	assign(archVentHist,'C:/ArchVentHist.dat');
@@ -110,19 +211,23 @@ BEGIN
 			       end;	
 				
 				2: begin
-							
+						CargarSucursales(archSucMund);
+						MostrarSucursales(archSucMund);	
 				   end;
 			
 				3: begin
-				   
+						CargarSucursales(archSucArg);
+						MostrarSucursales(archSucArg);
 				   end;
 			
 				4: begin
-				   
+						CargaClientes(archCli);
+						MostrarClientes(archCli);
 				   end;	
 			
 				5: begin
-				   
+						CargarVentas(archVentas);
+						MostrarVentas(archVentas);
 				   end;
 			else 	
 				writeln('Ingreso una opcion invalida, vuelva a ingresar');
@@ -132,3 +237,4 @@ BEGIN
 	until salir ;	
 		
 END.
+
