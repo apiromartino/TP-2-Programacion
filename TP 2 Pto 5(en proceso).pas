@@ -137,17 +137,47 @@ end;
 Procedure CargarClientes (var arch:tArchCli);
 
 var
-
+	regCli:tRegCli;
 begin
-
+	rewrite(arch);
+	writeln('Ingrese el numero de cliente, si no desea ingresarmas, coloque el numero 0');
+	readln(regCli.numCli);
+	while (regCli.numCli<>0) do
+		begin
+			writeln('Ingrese el nombre');
+			readln(regCli.nomb);
+			writeln('Ingrese la Provincia');
+			readln(regCli.prov);
+			writeln('Ingrese la Localidad');
+			readln(regCli.loc);
+			writeln('Ingrese la Direccion');
+			readln(regCli.direcc);
+			write(arch,regCli);
+			writeln('Ingrese el numero de cliente, si no desea ingresarmas, coloque el numero 0');
+			readln(regCli.numCli);
+		end;
+	close(arch);	
 end;
 
 Procedure MostrarClientes (var arch:tArchCli);
 
 var
-
+	regCli:tRegCli;
 begin
-
+	reset(arch);
+	writeln(' ');
+	writeln('Contenido de Archivo de Clientes');
+	while (not EOF(arch)) do
+		begin
+			read(arch,regCli);
+			writeln('Numero de cliente: ',regCli.numCli);
+			writeln('Nombre: ',regCli.nomb);
+			writeln('Provincia: ',regCli.prov);
+			writeln('Localidad: ',regCli.loc);
+			writeln('Direccion: ',regCli.direcc);
+			writeln(' ');
+		end;	
+	close(arch);
 end;
 
 
@@ -155,7 +185,7 @@ end;
 Procedure CargarVentas(var arch:tArchVentas);
 
 var
-
+	regVentas:tRegVentas;
 begin
 
 end;
@@ -164,7 +194,7 @@ end;
 Procedure MostrarVentas(var arch:tArchVentas);
 
 var
-
+	regVentas:tRegVentas;
 begin
 
 end;
