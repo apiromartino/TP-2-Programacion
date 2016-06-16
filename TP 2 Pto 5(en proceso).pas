@@ -70,13 +70,15 @@ var
 
 begin
 	reset(archVentHIst);
+	writeln(' ');
+	writeln('Contenido de Archivo de Ventas Historicas');
 	while (not EOF(archVentHist)) do
 		begin
 			read(archVentHist,regVentHist);
-			writeln('Sucursal numero ',regVentHist.numSuc);
-			writeln('Ano ',regVentHist.ano);
-			writeln('Mes numero ',regVentHist.mes);
-			writeln('Tiene un importe de ',regVentHist.importe);
+			writeln('Sucursal numero: ',regVentHist.numSuc);
+			writeln('Ano: ',regVentHist.ano);
+			writeln('Mes numero: ',regVentHist.mes);
+			writeln('Tiene un importe de: ',regVentHist.importe);
 			writeln(' ');
 		end;	
 	close(archVentHist);
@@ -110,12 +112,25 @@ begin
 end;
 
 
-Procedure MostrarSucursales(car arch:tArchSuc);
+Procedure MostrarSucursales(var arch:tArchSuc; lugar:string);
 
 var
-
+	regSuc:tRegSuc
 begin
-
+	reset(arch);
+	writeln(' ');
+	writeln('Contenido de Archivo de Sucursales ',lugar);
+	while (not EOF(arch)) do
+		begin
+			read(arch,regSuc);
+			writeln('Sucursal numero: ',regSuc.numSuc);
+			writeln('Nombre: ',regSuc.nomb);
+			writeln('Pais: ',regSuc.pais);
+			writeln('Direccion: ',regSuc.direcc);
+			writeln('Telefono: ',regSuc.tel);
+			writeln(' ');
+		end;	
+	close(arch);
 end;
 
 
@@ -212,12 +227,12 @@ BEGIN
 				
 				2: begin
 						CargarSucursales(archSucMund);
-						MostrarSucursales(archSucMund);	
+						MostrarSucursales(archSucMund, 'del Mundo');	
 				   end;
 			
 				3: begin
 						CargarSucursales(archSucArg);
-						MostrarSucursales(archSucArg);
+						MostrarSucursales(archSucArg, 'de Argentina');
 				   end;
 			
 				4: begin
@@ -237,4 +252,3 @@ BEGIN
 	until salir ;	
 		
 END.
-
