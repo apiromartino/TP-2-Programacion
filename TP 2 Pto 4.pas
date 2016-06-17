@@ -55,7 +55,7 @@ BEGIN
 			begin
 				write(archAct,regMund);
 				LeerArchSuc(archMund,regMund,finMund);
-			end;
+			end
 		else 
 			begin
 				write(archAct,regArg);
@@ -66,7 +66,7 @@ BEGIN
 			write(archAct,regMund);
 			LeerArchSuc(archMund,regMund,finMund);
 		end;	
-	while (no finArg) do
+	while (not finArg) do
 		begin
 			write(archAct,regArg);
 			LeerArchSuc(archArg,regArg,finArg);
@@ -76,4 +76,3 @@ BEGIN
 	close(archMund);
 	ActualizarArchSucMundo(archMund,archAct);
 END.
-
