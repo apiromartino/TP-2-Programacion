@@ -27,7 +27,7 @@ var
 begin
 	reset(archAct);
 	rewrite(archMund);
-	while (not eof(archAct)) do
+	while (not EOF(archAct)) do
 		begin
 			read(archAct,regAux);
 			write(archMund,regAux);
