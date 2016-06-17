@@ -3,8 +3,9 @@ program CargaImpresionArch;
 uses crt;
 
 type
+	tiAno=1980..2015;
 	tRegVentHist= record
-					ano:word;
+					ano:tiAno;
 					mes:1..12;
 					numSuc:word;
 					importe:real;
@@ -18,8 +19,9 @@ type
 			tel:string[20];
 		  end;
 	tArchSuc= file of tRegSuc;
+	tiCli=1..90000;
 	tRegCli= record
-				numCli:longint;
+				numCli:tiCli;
 				nomb:string[30];
 				prov:string[50];
 				loc:string[50];
@@ -28,7 +30,7 @@ type
 	tArchCli= file of tRegCli;
 	tRegVentas= record
 					fecha:string[8];
-					numCli:word;
+					numCli:tiCli;
 					numSuc:word;
 					artic:word;
 					cant:word;
