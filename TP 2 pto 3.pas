@@ -42,6 +42,7 @@ BEGIN
 		begin
 			cantProv:=0;
 			provAnt:=regCli.prov;
+			writeln(archCliTxt,' ');
 			writeln(archCliTxt,'Clientes en las distintas localidades de la Provincia ',provAnt);
 			while ((not finCli) and (provAnt=regCli.prov)) do
 				begin
