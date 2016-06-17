@@ -267,8 +267,8 @@ BEGIN
 	assign(archVentHist,'C:/ArchVentHistorico.dat');
 	assign(archSucMund,'C:/ArchSucMund.dat');
 	assign(archSucArg,'C:/ArchSucArg.dat');
-	assign(archCli,'C:/ArchClientes');
-	assign(archVentas,'C:/ArchVentas');
+	assign(archCli,'C:/ArchClientes.dat');
+	assign(archVentas,'C:/ArchVentas.dat');
 	opmax:=5;
 	opmin:=1;
 	writeln('Carga e impresion de Archivos');
