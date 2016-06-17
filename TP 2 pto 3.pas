@@ -23,21 +23,21 @@ end;
 
 
 var 
-	aechCli:tArhcCli;
+	archCli:tArchCli;
 	archCliTxt:text;
 	regCli:tRegCli;
 	finCli:boolean;
 	cantProv,cantLoc,total:longint;
-	provAnt,locAnt:sting[50];
+	provAnt,locAnt:string[50];
 
 BEGIN
-	assign(archCli,'C:/ArchivoClientes.dat');
+	assign(archCli,'C:/ArchClientes.dat');
 	assign(archCliTxt,'C:/TotCli.txt');
 	reset(archCli);
 	rewrite(archCliTxt);
 	LeerArchCli(archCli,regCli,finCli);
 	total:=0;
-	writeln(archCliTxh,'Clientes en Argentina');
+	writeln(archCliTxt,'Clientes en Argentina');
 	while (not finCli) do
 		begin
 			cantProv:=0;
@@ -47,7 +47,7 @@ BEGIN
 				begin
 					cantLoc:=0;
 					locAnt:=regCli.loc;
-					while ((not finCli) and (provAnt=regCli.prov) and (locAnt=regCli.loc))
+					while ((not finCli) and (provAnt=regCli.prov) and (locAnt=regCli.loc)) do
 						begin
 							Inc(cantLoc);
 							Inc(cantProv);
@@ -62,5 +62,3 @@ BEGIN
 	close(archCliTxt);
 	close(archCli);	
 END.
-
-
