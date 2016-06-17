@@ -9,7 +9,7 @@ type
 					importe:real;
 				  end;
 	tArchVentHist=file of tRegVentHist;
-	tiCli:1..90000;
+	tiCli=1..90000;
 	tRegVentas= record
 					fecha:string[8];
 					numCli:tiCli;
