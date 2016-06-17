@@ -3,8 +3,9 @@ program Pto3;
 uses crt;
 
 type
+	tiCli=1..90000;
 	tRegCli= record
-				numCli:longint;
+				numCli:tiCli;
 				nomb:string[30];
 				prov:string[50];
 				loc:string[50];
