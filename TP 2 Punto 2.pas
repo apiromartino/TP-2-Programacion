@@ -41,7 +41,9 @@ end;
 
 Procedure copiarReg (regVentas:tRegVentas; var regVentHistAct:tRegVentHist);
 var
-	cod1,cod2,anoaux,mesaux:integer;
+	cod1,cod2:byte;
+	anoaux:tiAno;
+	mesaux:1..12;
 begin
 	val(copy(regVentas.fecha,1,4),anoaux,cod1);
 	val(copy(regVentas.fecha,5,2),mesaux,cod2);
