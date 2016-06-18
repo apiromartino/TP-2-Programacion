@@ -32,7 +32,7 @@ type
 					fecha:string[8];
 					numCli:tiCli;
 					numSuc:word;
-					artic:word;
+					artic:longint;
 					cant:word;
 					importe:real;
 				end;
@@ -317,3 +317,4 @@ BEGIN
 	until salir ;	
 		
 END.
+
