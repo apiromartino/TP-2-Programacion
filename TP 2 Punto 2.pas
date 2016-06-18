@@ -14,7 +14,7 @@ type
 					fecha:string[8];
 					numCli:tiCli;
 					numSuc:word;
-					artic:word;
+					artic:longint;
 					cant:word;
 					importe:real;
 				end;
@@ -53,7 +53,7 @@ begin
 			importe:=regVentas.importe;
 		end;
 
-end
+end;
 
 
 Procedure ActualizarArchVentHist(var archVentHist:tArchVentHist; var archVentHistAct:tArchVentHist);
@@ -94,34 +94,34 @@ begin
 			begin
 				write(archVentHistAct,regVentHist);
 				LeerArchVentHist(archVentHist,regVentHist,finVentHist);
-			end;
+			end
 			else
 				if (regVentHist.numSuc>regVentas.numSuc) then
 					begin
 						copiarReg(regVentas,regVentHistAct);
 						write(archVentHistAct,regVentHistAct);		
 						LeerArchVentas(archVentas,regVentas,finVentas);
-					end;
+					end
 				else
 					begin								
-						copiarReg(regVentHist,regVentHistAct);			
+						copiarReg(regVentas,regVentHistAct);			
 						if (regVentHistAct.ano>regVentHist.ano) then
 							begin
 								write(archVentHistAct,regVentHist);
 								LeerArchVentHist(archVentHist,regVentHist,finVentHist);
-							end;
+							end
 						else
 								if (regVentHistAct.ano<regVentHist.ano) then
 									begin
-										write(archVentHistAct,regVentHistAct)
+										write(archVentHistAct,regVentHistAct);
 										LeerArchVentas(archVentas,regVentas,finVentas);
-									end;
+									end
 								else 
 									if (regVentHistAct.mes>regVentHist.mes) then
 										begin
 											write(archVentHistAct,regVentHist);
 											LeerArchVentHist(archVentHist,regVentHist,finVentHist);
-										end;
+										end
 										else 
 											begin
 												write(archVentHistAct,regVentHistAct);
@@ -137,9 +137,9 @@ begin
 		end;
 	while (not finVentas) do	 				
 		begin
-			copiarReg(regVentHist,regVentHistAct);
+			copiarReg(regVentas,regVentHistAct);
 			write(archVentHistAct,regVentHistAct);
 			LeerArchVentas(archVentas,regVentas,finVentas);
 		end;
 	ActualizarArchVentHist(archVentHist,archVentHistAct);	
-end;
+end.
