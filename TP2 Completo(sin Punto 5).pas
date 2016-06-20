@@ -1,6 +1,6 @@
 Program Archivos;
 
-uses crt;
+
 
 type
 	tiAno=1980..2015;
@@ -39,13 +39,7 @@ type
 	tArchSuc= file of tRegSuc;		
 
 
-Procedure LeerArchVentHist(var arch:tArchVentHist; var reg:tRegVentHist; var fin:boolean);
 
-begin
-	fin:= EOF(arch);
-	if (not fin) then
-		read(arch,reg);
-end;
 
 Procedure LeerArchVentas(var arch:tArchVentas; var reg:tRegVentas; var fin:boolean);
 
@@ -54,6 +48,72 @@ begin
 	if (not fin) then
 		read(arch,reg);
 end;
+
+
+Function Mes (mesant:byte):string;
+
+begin
+	case mesant of
+		1:Mes:='Enero';
+		2:Mes:='Febrero';
+		3:Mes:='Marzo';
+		4:Mes:='Abril';
+		5:Mes:='Mayo';
+		6:Mes:='Junio';
+		7:Mes:='Julio';
+		8:Mes:='Agosto';
+		9:Mes:='Septiembre';
+		10:Mes:='Octubre';
+		11:Mes:='Noviembre';
+		12:Mes:='Diciembre';
+	end;	
+
+end;
+
+
+Procedure VentasArg2015 (var archVentas:tArchVentas);
+
+var
+	regVentas:tRegVentas;
+	mesaux,mesant:1..12;
+	cod:byte;
+	finVentas:boolean;
+
+begin
+	reset(archVentas);
+	LeerArchVentas(archVentas,regVentas,finVentas);
+	val(copy(regVentas.fecha,5,2),mesaux,cod);
+	while (not finVentas) do
+		begin
+			mesant:=mesaux;
+			writeln('Ventas en el mes de ',Mes(mesant));
+			writeln(' ');
+			while ((not finVentas) and (mesant=mesaux)) do
+				begin
+					writeln('Sucursal numero: ',regVentas.numSuc);
+					writeln('Numero de Cliente: ',regVentas.numCli);
+					writeln('Codigo Articulo: ',regVentas.artic);
+					writeln('Cantidad: ',regVentas.cant);
+					writeln('Importe: ',round(regVentas.importe));
+					writeln(' ');
+					LeerArchVentas(archVentas,regVentas,finVentas);
+					val(copy(regVentas.fecha,5,2),mesaux,cod);
+				end;
+			writeln(' ');		 
+		end;	
+	close(archVentas);
+end;
+
+
+
+Procedure LeerArchVentHist(var arch:tArchVentHist; var reg:tRegVentHist; var fin:boolean);
+
+begin
+	fin:= EOF(arch);
+	if (not fin) then
+		read(arch,reg);
+end;
+
 
 
 Procedure copiarReg (regVentas:tRegVentas; var regVentHistAct:tRegVentHist);
@@ -290,7 +350,7 @@ BEGIN
 	assign(archArg,'C:/ArchSucArg.dat');
 	assign(archMund,'C:/ArchSucMund.dat');
 	assign(archAct,'C:/ArchSucActualizado.dat');
-	{Aca falta el punto 1, un procedure que se llame CuadroVentas(archVentas);}
+	VentasArg2015(archVentas);
 	ActualizarArchVentHist(archVentHist,archVentas,archVentHistAct);
 	GenerarArchTxtClientes(archCli,archCliTxt);
 	ActualizarArchSucMund(archArg,archMund,archAct);
