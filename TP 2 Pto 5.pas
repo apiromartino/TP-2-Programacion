@@ -1,6 +1,6 @@
 program CargaImpresionArch;
 
-uses crt;
+
 
 type
 	tiAno=1980..2015;
@@ -19,7 +19,7 @@ type
 			tel:string[20];
 		  end;
 	tArchSuc= file of tRegSuc;
-	tiCli=1..90000;
+	tiCli=0..90000;
 	tRegCli= record
 				numCli:tiCli;
 				nomb:string[30];
@@ -317,4 +317,3 @@ BEGIN
 	until salir ;	
 		
 END.
-
